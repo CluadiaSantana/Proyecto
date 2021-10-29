@@ -6,6 +6,7 @@ const swaggerJsDoc= require('swagger-jsdoc');
 const swaggerUI= require('swagger-ui-express');
 const MongoClient= require('mongodb').MongoClient;
 const Database = require('./src/models/database');
+const apiRoutes = require('./src/routes/index');
 const { log } = require("./middlewares/logs");
 
 
@@ -50,7 +51,7 @@ const swaggerOptions ={
 app.use(log);
 app.use(express.json());
 app.use(router);
-
+app.use('/api', apiRoutes);
 
 /**
  * @swagger
