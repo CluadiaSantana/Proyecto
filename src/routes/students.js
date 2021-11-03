@@ -34,7 +34,7 @@ router.post('/',StudentController.sign);
  * 
  * /api/students?id={id}:
  *   put:
- *     summary: delete a user
+ *     summary: update a student
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -91,7 +91,7 @@ router.get('/', StudentController.getStudents);
  * 
  * /api/students?id={id}:
  *   get:
- *     summary: delete a user
+ *     summary: get one student
  *     security:
  *       - bearerAuth: []
  *     parameters:

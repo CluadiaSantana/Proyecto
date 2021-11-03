@@ -11,7 +11,7 @@ const auth= require('../../middlewares/auth')
  * 
  * /api/records:
  *   post:
- *     summary: create a new student
+ *     summary: create a new record
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -27,11 +27,11 @@ const auth= require('../../middlewares/auth')
  *            hour: 3 a 4
  *     responses:
  *       201:
- *         description: Student created correctly!
+ *         description: Record created correctly
  *       400:
  *         description: Data is missing!
  *       404:
- *         description: Student not alredy exist!!  
+ *         description: Record already exist  
  */
 router.post('/',RegistrationRecordController.sign);
 
@@ -65,14 +65,14 @@ router.post('/',RegistrationRecordController.sign);
  *            hour: 3 a 4
  *            status: vacations
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: Update Record
  *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Database error! 
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Record not found
+ *       401:
+ *         description: Unauthorized!!
  */
 
  router.put('/', auth.adminValidation, RegistrationRecordController.findOneAndUpdateRegister);
@@ -86,14 +86,14 @@ router.post('/',RegistrationRecordController.sign);
  *     security:
  *       - bearerAuth: []
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: results
  *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Database error
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Record not found
+ *       401:
+ *         description: Unauthorized!!  
  */
 
 router.get('/', RegistrationRecordController.getRegistration);
@@ -118,14 +118,14 @@ router.get('/', RegistrationRecordController.getRegistration);
  *         example:
  *          jyt52utu2
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: results
  *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Database error
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Record not found
+ *       401:
+ *         description: Unauthorized!!  
  */
 
 router.get('/', RegistrationRecordController.getRegistration);
@@ -152,14 +152,12 @@ router.get('/', RegistrationRecordController.getRegistration);
  *         example:
  *          jyt52utu2
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
+ *       200:
+ *         description: Delete records
  *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *         description: Record not found
+ *       401:
+ *         description: Unauthorized!! 
  */
 router.delete('/', auth.adminValidation, RegistrationRecordController.deleteRegistration);
 

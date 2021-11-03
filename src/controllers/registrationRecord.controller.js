@@ -16,11 +16,11 @@ class RegistrationRecordController {
             hour: hour,
             status :"Active"
         }).then(response => {
-            res.statusMessage = "User created correctly!";
+            res.statusMessage = "Record created correctly!";
             return res.status(201).end();
         })
             .catch(error => {
-            res.statusMessage = "User already exist!";
+            res.statusMessage = "Record already exist!";
             return res.status(400).end();
         });
     }
@@ -34,8 +34,8 @@ class RegistrationRecordController {
         }};
     
         database.findOneAndUpdate({studentId: req.query.studentId , teacherId:req.query.teacherId}, update).then((user) => {
-            if (!user) return res.status(404).send("User not found");
-            res.send("Update user");
+            if (!user) return res.status(404).send("Record not found");
+            res.status(200).send("Update Record");
           });
     }
 
@@ -49,9 +49,9 @@ class RegistrationRecordController {
                 }
 
                 if(results.length === 0) {
-                    res.status(400).send('Students not found');
+                    res.status(400).send('Record not found');
                 } else {
-                    res.send(results);
+                    res.status(200).send(results);
                 }
             });
         }else{
@@ -61,9 +61,9 @@ class RegistrationRecordController {
                 }
 
                 if(results.length === 0) {
-                    res.status(400).send('Students not found');
+                    res.status(400).send('Record not found');
                 } else {
-                    res.send(results);
+                    res.status(200).send(results);
                 }
             });
 
@@ -73,8 +73,8 @@ class RegistrationRecordController {
     static deleteRegistration(req, res){
         const database = new Database('registrationRecords');
         database.findOneAndDelete({studentId: req.query.studentId , teacherId:req.query.teacherId}).then((user) => {
-            if (!user) return res.status(404).send("User dosen´t founded");
-            res.send("Delete user");
+            if (!user) return res.status(404).send("Record not founded");
+            res.status(200).send("Delete records");
           });
     }
 
