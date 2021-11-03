@@ -37,7 +37,14 @@ class Database {
     };
 
     deleteOne(filters){
-        return this.collection.deleteOne(filters);
+        return this.collection.deleteOne(filters,function(error ,response){
+            if(error){
+                reject(error);
+            }else {
+                resolve(response);
+          // return 
+                }
+        });
     }
 
     findOneAndUpdate(filters){

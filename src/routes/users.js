@@ -3,6 +3,7 @@ const router = require('express').Router();
 const Database = require('./../models/database');
 const path = require('path');
 const UsersController = require('../controllers/users.controller');
+const auth= require('../../middlewares/auth')
 
 
 /**
@@ -34,7 +35,7 @@ router.post('/',UsersController.sign);
 /**
  * @swagger
  * 
- * /auth/login:
+ * /auth/users/login:
  *   post:
  *     summary: user login 
  *     requestBody:
@@ -58,6 +59,26 @@ router.post('/',UsersController.sign);
  */
 router.post('/login',UsersController.login);
 
+/**
+ * @swagger
+ * 
+ * /api/users:
+ *   get:
+ *     summary: delete a user
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Login sucess
+ *       403:
+ *         description: Incorect password! 
+ *       400:
+ *         description: Data is missing!
+ *       404:
+ *         description: User not alredy exist!!  
+ */
+
+router.get('/', UsersController.getAllUsers);
 
 
 

@@ -21,6 +21,7 @@ class UsersController {
             rol: "",
             id: ""+ Math.random().toString(36).substr(2, 9)
         }).then(response => {
+            
             res.statusMessage = "User created correctly!";
             return res.status(201).end();
         })
@@ -66,40 +67,26 @@ class UsersController {
     }
 
     deleteUser(req, res){
-        console.log(req.body);
-    //     const database = new Database('users');
-    //     if(!userPer){
-    //         return res.status(403).end()
-    //     }
-    //     database.findOne({ id: req.body.id })
-    //         .then(results => {
-    //         if (results) {
-    //             UsersController.deleteOne({id: req.body.id});
-    //             //aqui poner eliminar de techers o de students
-    //             return res.status(200).end;
-    //         }
-    //         else {
-    //             res.statusMessage = "User not alredy exist!!";
-    //             return res.status(400).end();
-    //         }
-    //     });
-    // }
-
-    // find(req, res){
-    //     const database= new Database('users');
-    //     let token= req.headers["x-auth"];
-    //     database.find().then(results=>{
-    //         if(results){
-    //             res.status(200);
-    //             return results;
-    //         }else{
-    //             res.status(400);
-    //             return
-    //         }
-    //     })
+        const database = new Database('users');
+        database.deleteOne({id: req.params.id})
     }
 
-    updateUser(req, res){
+    static getAllUsers(req, res) {
+        const database = new Database('users');
+        console.log(`estos son los requerimientos ${req.body.rol}`);
+        database.find().toArray((err, results) => {
+            if(err) {
+                res.status(400).send('database error');
+            }
+
+            if(results.length === 0) {
+                res.status(400).send('users not found');
+            } else {
+                res.send(results);
+            }
+        });
+
+        
 
     }
     
