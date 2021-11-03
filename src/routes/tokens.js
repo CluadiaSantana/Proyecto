@@ -25,11 +25,11 @@ const TokensController = require('../controllers/tokens.controller');
  *             token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNTQHRlc3QuY29tIiwicm9sIjoiIiwiaWQiOiI0NjgycHR2anMiLCJpYXQiOjE2MzU5MTY1MzB9.HRTOrp1C3oPiweTOwzGb4C80arA2BKr_QPm3XLoHef8
  *     responses:
  *       201:
- *         description: User created correctly!
+ *         description: Student created correctly!
  *       400:
  *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *       400:
+ *         description: Student already exist!!  
  */
  router.post('/',TokensController.sgnToken);
 
@@ -39,18 +39,16 @@ const TokensController = require('../controllers/tokens.controller');
  * 
  * /api/tokens:
  *   get:
- *     summary: get all the students
+ *     summary: get all tokens records
  *     security:
  *       - bearerAuth: []
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
+ *       200:
+ *         description: results
  *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *         description: Tokens not found! 
+ *       403:
+ *         description: Database error!
  */
 
 router.get('/', TokensController.getToken);
@@ -60,7 +58,7 @@ router.get('/', TokensController.getToken);
  * 
  * /api/tokens?id={id}:
  *   get:
- *     summary: delete a user
+ *     summary: get a tokens from one user
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -70,14 +68,12 @@ router.get('/', TokensController.getToken);
  *         example:
  *          9dk9g0f53
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: resukts
  *       403:
- *         description: Incorect password! 
+ *         description: Database error
  *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *         description: Tokens not found 
  */
 
 router.get('/', TokensController.getToken);
@@ -87,7 +83,7 @@ router.get('/', TokensController.getToken);
  * 
  * /api/tokens/{id}:
  *   delete:
- *     summary: delete a student
+ *     summary: delete all the tokens from a user
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -97,14 +93,10 @@ router.get('/', TokensController.getToken);
  *         example:
  *          vb1ph9dxh
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
+ *       200:
+ *         description: Delete tokens
  *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *         description: User id not founded   
  */
  router.delete('/:id', auth.adminValidation, TokensController.deleteTokens);
 

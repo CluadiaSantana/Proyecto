@@ -45,11 +45,11 @@ class TokensController{
             id: id,
             date: fullDate
         }).then(response => {
-            res.statusMessage = "User created correctly!";
+            res.statusMessage = "Student created correctly!";
             return res.status(201).end();
         })
             .catch(error => {
-            res.statusMessage = "User already exist!";
+            res.statusMessage = "Student already exist!";
             return res.status(400).end();
         });
     }
@@ -59,26 +59,26 @@ class TokensController{
         if(!req.query.id){
             database.find().toArray((err, results) => {
                 if(err) {
-                    res.status(400).send('Database error');
+                    res.status(403).send('Database error');
                 }
 
                 if(results.length === 0) {
-                    res.status(400).send('Students not found');
+                    res.status(400).send('Tokens not found');
                 } else {
-                    res.send(results);
+                    res.status(200).send(results);
                 }
             });
         }else{
             database.find({id: req.query.id})
             .toArray((err, results) => {
                 if(err) {
-                    res.status(400).send('Database error');
+                    res.status(403).send('Database error');
                 }
 
                 if(results.length === 0) {
-                    res.status(400).send('Students not found');
+                    res.status(400).send('Tokens not found');
                 } else {
-                    res.send(results);
+                    res.status(200).send(results);
                 }
             });
         }
@@ -88,8 +88,8 @@ class TokensController{
     static deleteTokens(req, res){
         const database = new Database('tokensControl');
         database.findOneAndDelete({id: req.params.id}).then((token) => {
-            if (!token) return res.status(404).send("User dosen´t founded");
-            res.send("Delete user");
+            if (!token) return res.status(404).send("User id not founded");
+            res.status(200).send("Delete tokens");
           });
     }
 
