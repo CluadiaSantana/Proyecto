@@ -44,7 +44,7 @@ const swaggerOptions ={
         },
         openapi: "3.0.0",
         },
-    apis: [ 'src/routes/index.js',  'src/routes/users.js', 'src/routes/students.js', 'src/routes/teachers.js'],
+    apis: [ 'src/routes/index.js',  'src/routes/users.js', 'src/routes/students.js', 'src/routes/teachers.js', 'src/routes/tokens.js'],
     };
 
 
