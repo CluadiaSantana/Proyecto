@@ -67,7 +67,7 @@ class UsersController {
                 });
             }
             else {
-                res.statusMessage = "User not alredy exist!!";
+                res.statusMessage = "User does not exist!!";
                 return res.status(400).end();
             }
         });
@@ -87,7 +87,7 @@ class UsersController {
                     res.send(results);
     
                 } else {
-                    console.log('No se encontro el usuario');
+                    console.log('User not found!');
                 }
             })
             .catch(err => {});
@@ -100,11 +100,11 @@ class UsersController {
         if(!req.query.id){
             database.find().toArray((err, results) => {
                 if(err) {
-                    res.status(400).send('database error');
+                    res.status(400).send('Database error');
                 }
 
                 if(results.length === 0) {
-                    res.status(400).send('users not found');
+                    res.status(400).send('Users not found');
                 } else {
                     res.send(results);
                 }
@@ -117,7 +117,7 @@ class UsersController {
                     res.send(results);
     
                 } else {
-                    console.log('No se encontro el usuario');
+                    console.log('User not found');
                 }
             })
             .catch(err => {});
