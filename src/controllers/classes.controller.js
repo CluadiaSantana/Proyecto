@@ -18,11 +18,11 @@ class ClassesController {
             teacherId: teacherId,
             weeklyHours: weeklyHours
         }).then(response => {
-            res.statusMessage = "User created correctly!";
+            res.statusMessage = "Class created correctly!";
             return res.status(201).end();
         })
             .catch(error => {
-            res.statusMessage = "User already exist!";
+            res.statusMessage = "Class already exist!";
             return res.status(400).end();
         });
     }
@@ -36,8 +36,8 @@ class ClassesController {
         }};
     
         database.findOneAndUpdate({studentId: req.query.studentId , teacherId:req.query.teacherId}, update).then((user) => {
-            if (!user) return res.status(404).send("User not found");
-            res.send("Update user");
+            if (!user) return res.status(404).send("Class not found");
+            res.status(200).send("Update Class");
           });
     }
 
@@ -51,9 +51,9 @@ class ClassesController {
                 }
 
                 if(results.length === 0) {
-                    res.status(400).send('Students not found');
+                    res.status(400).send('Classes not found');
                 } else {
-                    res.send(results);
+                    res.status(200).send(results);
                 }
             });
         }else{
@@ -63,9 +63,9 @@ class ClassesController {
                 }
 
                 if(results.length === 0) {
-                    res.status(400).send('Students not found');
+                    res.status(400).send('Class not found');
                 } else {
-                    res.send(results);
+                    res.status(200).send(results);
                 }
             });
 
@@ -75,8 +75,8 @@ class ClassesController {
     static deleteClasses(req, res){
         const database = new Database('classes');
         database.findOneAndDelete({studentId: req.query.studentId , teacherId:req.query.teacherId}).then((user) => {
-            if (!user) return res.status(404).send("User dosen´t founded");
-            res.send("Delete user");
+            if (!user) return res.status(404).send("Class not founded");
+            res.status(200).send("Delete Class");
           });
     }
 

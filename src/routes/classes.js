@@ -11,14 +11,14 @@ const auth= require('../../middlewares/auth')
  * 
  * /api/classes:
  *   post:
- *     summary: create a new student
+ *     summary: create a new class
  *     security:
  *       - bearerAuth: []
  *     requestBody:
  *       content:
  *         application/json:
  *           schema:
- *             description: the id of the user
+ *             description: the data for create a new class
  *             type: object
  *           example: 
  *            numClasses: 50
@@ -27,11 +27,13 @@ const auth= require('../../middlewares/auth')
  *            weeklyHours: 3
  *     responses:
  *       201:
- *         description: Student created correctly!
+ *         description: Class created correctly!
  *       400:
  *         description: Data is missing!
  *       404:
- *         description: Student not alredy exist!!  
+ *         description: Class already exist!!  
+ *       401:
+ *         description: Unauthorized!! 
  */
 router.post('/',ClassesController.sign);
 
@@ -41,7 +43,7 @@ router.post('/',ClassesController.sign);
  * 
  * /api/classes?studentId={studentId}&teacherId={teacherId}:
  *   put:
- *     summary: delete a user
+ *     summary: update a class
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -59,20 +61,18 @@ router.post('/',ClassesController.sign);
  *       content:
  *         application/json:
  *           schema:
- *             description: the email and password
+ *             description: the student-teacher id
  *             type: object
  *           example: 
  *            numClasses: 80
  *            weeklyHours: 4
  *     responses:
  *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Update Class
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Class not found  
+ *       401:
+ *         description: Unauthorized!! 
  */
 
  router.put('/', auth.adminValidation, ClassesController.findOneAndUpdateClass);
@@ -82,18 +82,18 @@ router.post('/',ClassesController.sign);
  * 
  * /api/classes:
  *   get:
- *     summary: get all the students
+ *     summary: get all classes
  *     security:
  *       - bearerAuth: []
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: results
  *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Database error
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Classes not found
+ *       401:
+ *         description: Unauthorized!!  
  */
 
 router.get('/', ClassesController.getClasses);
@@ -103,7 +103,7 @@ router.get('/', ClassesController.getClasses);
  * 
  * /api/classes?studentId={studentId}&teacherId={teacherId}:
  *   get:
- *     summary: delete a user
+ *     summary: search a class
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -118,14 +118,14 @@ router.get('/', ClassesController.getClasses);
  *         example:
  *          jyt52utu2
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: results
  *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Database error
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Classes not found
+ *       401:
+ *         description: Unauthorized!!  
  */
 
 router.get('/', ClassesController.getClasses);
@@ -152,14 +152,12 @@ router.get('/', ClassesController.getClasses);
  *         example:
  *          jyt52utu2
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
+ *       200:
+ *         description: Delete class
  *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *         description: Class not found
+ *       401:
+ *         description: Unauthorized!!  
  */
 router.delete('/', auth.adminValidation, ClassesController.deleteClasses);
 

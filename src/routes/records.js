@@ -32,6 +32,8 @@ const auth= require('../../middlewares/auth')
  *         description: Data is missing!
  *       404:
  *         description: Record already exist  
+ *       401:
+ *         description: Unauthorized!! 
  */
 router.post('/',RegistrationRecordController.sign);
 
@@ -41,7 +43,7 @@ router.post('/',RegistrationRecordController.sign);
  * 
  * /api/records?studentId={studentId}&teacherId={teacherId}:
  *   put:
- *     summary: delete a user
+ *     summary: update a record
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -82,7 +84,7 @@ router.post('/',RegistrationRecordController.sign);
  * 
  * /api/records:
  *   get:
- *     summary: get all the students
+ *     summary: get all the records
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -103,7 +105,7 @@ router.get('/', RegistrationRecordController.getRegistration);
  * 
  * /api/records?studentId={studentId}&teacherId={teacherId}:
  *   get:
- *     summary: delete a user
+ *     summary: get a records by studen-teacher id
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -137,7 +139,7 @@ router.get('/', RegistrationRecordController.getRegistration);
  * 
  * /api/records?studentId={studentId}&teacherId={teacherId}:
  *   delete:
- *     summary: delete a student
+ *     summary: delete record
  *     security:
  *       - bearerAuth: []
  *     parameters:
