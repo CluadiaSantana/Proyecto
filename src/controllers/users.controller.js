@@ -129,7 +129,8 @@ class UsersController {
         database.findOneAndDelete({id: req.params.id}).then((user) => {
             if (!user) {
                 return res.status(404).send("User dosen´t founded");}
-            StudentController.delete(req.params.id)
+            StudentController.delete(req.params.id);
+            TeacherController.delete(req.params.id);
             res.send("Delete user");
           });
     }
