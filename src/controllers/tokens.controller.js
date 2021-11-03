@@ -9,6 +9,11 @@ class tokensController{
 
     static newToken(token, id){
         const database = new Database('tokensControl');
+        let hDate = new Date()
+        let d = hDate.getDate();
+        let m = hDate.getMonth()+1;
+        let y = hDate.getFullYear();
+        let fullDate = `${d}.${m}.${y}.`
         database.insertOne({
             token: token,
             id: id,

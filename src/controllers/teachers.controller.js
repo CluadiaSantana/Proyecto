@@ -3,25 +3,23 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 require('dotenv').config();
 
-class StudentController {
-    static sign(id) {
+class TeacherController {
+    static sign(id, salary) {
         const database = new Database('students');
 
-       let iDate = new Date()
-       let d = iDate.getDate();
-       let m = iDate.getMonth()+1;
-       let y = iDate.getFullYear();
+       let hDate = new Date()
+       let d = hDate.getDate();
+       let m = hDate.getMonth()+1;
+       let y = hDate.getFullYear();
        let fullDate = `${d}.${m}.${y}.`;
-       
+
         database.insertOne({
-            inscriptionDate: fullDate ,
-            graduationDate: "",
-            abscences: 0,
-            totalClasses: 0,
-            urlVideo: "",
-            id: id
+            id:id,
+            hiringDate: fullDate ,
+            students: [],
+            salary: salary ,
+            status: ""
         }).then(response => {
-            
             return;
         })
             .catch(error => {

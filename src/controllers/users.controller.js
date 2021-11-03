@@ -15,15 +15,17 @@ class UsersController {
             return res.status(400).end();
         }
         let codepass = bcrypt.hashSync(password, 10);
+        let id= ""+ Math.random().toString(36).substr(2, 9)
         database.insertOne({
             email: email,
             password: codepass,
             username: username,
             rol: rol,
-            id: ""+ Math.random().toString(36).substr(2, 9)
+            id: id
         }).then(response => {
             if(rol == student){
-                
+                const dataStudent = new Database('student');
+                dataStudent.sign(id, )
             }
             res.statusMessage = "User created correctly!";
             return res.status(201).end();
@@ -55,7 +57,8 @@ class UsersController {
                     id: results.id
                 };
                 let token = jwt.sign(response, secret,{ expiresIn: 60 });
-                const database = new Database('tokensControl');
+                const dataTokens = new Database('tokensControl');
+                dataTokens.newToke(toke, result.id);
                 res.statusMessage = "Login sucess";
                 return res.status(200).send({
                     "email": response.email,
