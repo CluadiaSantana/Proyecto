@@ -6,21 +6,6 @@ require('dotenv').config();
 let secret = process.env.JWTSECRET;
 
 class UsersController {
-    static authPer(token) {
-        let decoded;
-        try {
-            decoded = jwt.verify(token, secret);
-        }
-        catch (err) {
-            return;
-        }
-        let reg = [];
-        reg.push(decoded.rol);
-        reg.push(decoded.email);
-        reg.push(decoded.id);
-        //console.log(`reg 0 es ${reg[0]}`);
-        return reg;
-    }
     static sign(req, res) {
         const database = new Database('users');
         let { username, password, email } = req.body;
@@ -44,6 +29,7 @@ class UsersController {
             return res.status(400).end();
         });
     }
+
     static login(req, res) {
         let { email, password } = req.body;
         if (!email || !password) {
@@ -80,38 +66,37 @@ class UsersController {
     }
 
     deleteUser(req, res){
-        const database = new Database('users');
-        let token= req.headers["x-auth"];
-        let userPer = SalaController.authPer(token);
-        if(!userPer){
-            return res.status(403).end()
-        }
-        database.findOne({ id: req.body.id })
-            .then(results => {
-            if (results) {
-                UsersController.deleteOne({id: req.body.id});
-                //aqui poner eliminar de techers o de students
-                return res.status(200).end;
-            }
-            else {
-                res.statusMessage = "User not alredy exist!!";
-                return res.status(400).end();
-            }
-        });
-    }
+        console.log(req.body);
+    //     const database = new Database('users');
+    //     if(!userPer){
+    //         return res.status(403).end()
+    //     }
+    //     database.findOne({ id: req.body.id })
+    //         .then(results => {
+    //         if (results) {
+    //             UsersController.deleteOne({id: req.body.id});
+    //             //aqui poner eliminar de techers o de students
+    //             return res.status(200).end;
+    //         }
+    //         else {
+    //             res.statusMessage = "User not alredy exist!!";
+    //             return res.status(400).end();
+    //         }
+    //     });
+    // }
 
-    find(req, res){
-        const database= new Database('users');
-        let token= req.headers["x-auth"];
-        database.find().then(results=>{
-            if(results){
-                res.status(200);
-                return results;
-            }else{
-                res.status(400);
-                return
-            }
-        })
+    // find(req, res){
+    //     const database= new Database('users');
+    //     let token= req.headers["x-auth"];
+    //     database.find().then(results=>{
+    //         if(results){
+    //             res.status(200);
+    //             return results;
+    //         }else{
+    //             res.status(400);
+    //             return
+    //         }
+    //     })
     }
 
     updateUser(req, res){

@@ -8,7 +8,7 @@ const UsersController = require('../controllers/users.controller');
 /**
  * @swagger
  * 
- * /api/users:
+ * /auth/users:
  *   post:
  *     summary: create a new user
  *     requestBody:
@@ -34,7 +34,7 @@ router.post('/',UsersController.sign);
 /**
  * @swagger
  * 
- * /api/users/login:
+ * /auth/login:
  *   post:
  *     summary: user login 
  *     requestBody:
