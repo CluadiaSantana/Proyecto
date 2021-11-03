@@ -36,19 +36,12 @@ class Database {
         })
     };
 
-    deleteOne(filters){
-        return this.collection.deleteOne(filters,function(error ,response){
-            if(error){
-                reject(error);
-            }else {
-                resolve(response);
-          // return 
-                }
-        });
+    findOneAndDelete(filters){
+        return this.collection.findOneAndDelete(filters);
     }
 
-    findOneAndUpdate(filters){
-        return this.collection.findOneAndUpdate(filters);
+    findOneAndUpdate(query, update, options){
+        return this.collection.findOneAndUpdate(query, update, options);
     }
 }
 

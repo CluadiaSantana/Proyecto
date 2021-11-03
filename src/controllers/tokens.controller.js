@@ -30,3 +30,4 @@ class tokensController{
 
 
 }
+module.exports = tokensController;

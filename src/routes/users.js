@@ -22,6 +22,7 @@ const auth= require('../../middlewares/auth')
  *             email: "CS@test.com"
  *             password: "Hola123Hola"
  *             username: "Claudia"
+ *             rol: "Admin"
  *     responses:
  *       201:
  *         description: User created correctly!
@@ -58,6 +59,37 @@ router.post('/',UsersController.sign);
  *         description: User not alredy exist!!  
  */
 router.post('/login',UsersController.login);
+
+/**
+ * @swagger
+ * 
+ * /api/users:
+ *   put:
+ *     summary: delete a user
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             description: the email and password
+ *             type: object
+ *           example: 
+ *             email: "CS@test.com"
+ *             password: "Hola123Hola2"
+ *             username: "Claudia1"
+ *     responses:
+ *       201:
+ *         description: Login sucess
+ *       403:
+ *         description: Incorect password! 
+ *       400:
+ *         description: Data is missing!
+ *       404:
+ *         description: User not alredy exist!!  
+ */
+
+ router.put('/',  UsersController.findOneAndUpdate);
 
 /**
  * @swagger
@@ -104,16 +136,25 @@ router.get('/', UsersController.getUsers);
  *       404:
  *         description: User not alredy exist!!  
  */
-router.get('/',UsersController.getUsers);
+
+router.get('/', UsersController.getUsers);
+
+
 
 /**
  * @swagger
  * 
- * /api/users:
+ * /api/users/{id}:
  *   delete:
  *     summary: delete a user
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         example:
+ *          c6qodocp0
  *     responses:
  *       201:
  *         description: Login sucess
@@ -124,6 +165,6 @@ router.get('/',UsersController.getUsers);
  *       404:
  *         description: User not alredy exist!!  
  */
-router.delete('/',UsersController.deleteUser);
+router.delete('/:id', auth.adminValidation, UsersController.deleteUser);
 
 module.exports = router;

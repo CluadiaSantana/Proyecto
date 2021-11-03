@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 require('dotenv').config();
 
 class TeacherController {
-    static sign(id, salary) {
+    static signUser(id, salary) {
         const database = new Database('students');
 
        let hDate = new Date()
@@ -26,4 +26,9 @@ class TeacherController {
             return;
         });
     }
+
+    static sign(req,res){
+        
+    }
 }
+module.exports = TeacherController;

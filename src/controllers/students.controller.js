@@ -3,7 +3,7 @@ require('dotenv').config();
 
 
 class StudentController {
-    static sign(id) {
+    static signUser(id) {
         const database = new Database('students');
 
        let iDate = new Date()
@@ -28,3 +28,5 @@ class StudentController {
         });
     }
 }
+
+module.exports = StudentController;

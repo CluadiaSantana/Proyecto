@@ -5,15 +5,11 @@ let secret = process.env.JWTSECRET;
 function authPer(req,res,next){
     let token= req.headers["x-auth"];
     if(token){
-        jwt.verify(token, secret, (err, decoded)=>{
+        jwt.verify(token, secret, (err, payload)=>{
             if(err){
                 res.status(401).send({error: "Token no válido"})   
             }else{
-                let reg = [];
-                reg.push(decoded.rol);
-                reg.push(decoded.email);
-                reg.push(decoded.id);
-                res.reg = reg;
+                req.rol = payload.rol;
                 next();
             }
         })
@@ -24,4 +20,24 @@ function authPer(req,res,next){
     
 }
 
-module.exports = {authPer}
+function adminValidation(req,res, next){
+    const rol = req.rol;
+    console.log(rol);
+    if(rol == "Admin"){
+        next();
+    }else{
+          res.status(401).send({error:"unauthorized user"})
+    }
+}
+
+function teachetValidation(req,res, next){
+    const rol = req.rol;
+
+    if(rol == "teacher" || rol == "Admin"){
+        next();
+    }else{
+          res.status(401).send({error:"unauthorized user"})
+    }
+}
+
+module.exports = {authPer , adminValidation, teachetValidation}

@@ -2,6 +2,8 @@ const Database = require('../models/database');
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 const TokensController = require('../controllers/tokens.controller');
+const StudentController = require('../controllers/students.controller');
+const TeacherController = require('../controllers/teachers.controller');
 require('dotenv').config();
 
 let secret = process.env.JWTSECRET;
@@ -10,7 +12,7 @@ class UsersController {
     static sign(req, res) {
         const database = new Database('users');
         let { username, password, email, rol } = req.body;
-        if ( !username || !password || !email || rol) {
+        if ( !username || !password || !email || !rol) {
             res.statusMessage = "Data is missing!";
             return res.status(400).end();
         }
@@ -23,9 +25,10 @@ class UsersController {
             rol: rol,
             id: id
         }).then(response => {
-            if(rol == student){
-                const dataStudent = new Database('student');
-                dataStudent.sign(id, )
+            if(rol == "student"){
+                StudentController.signUser(id)
+            }else if(rol == "teacher"){
+                TeacherController.signUser(id, req.body.salary)
             }
             res.statusMessage = "User created correctly!";
             return res.status(201).end();
@@ -56,9 +59,8 @@ class UsersController {
                     rol: results.rol,
                     id: results.id
                 };
-                let token = jwt.sign(response, secret,{ expiresIn: 60 });
-                const dataTokens = new Database('tokensControl');
-                dataTokens.newToke(toke, result.id);
+                let token = jwt.sign(response, secret,{ expiresIn: '1h' });
+                TokensController.newToken(token, results.id);
                 res.statusMessage = "Login sucess";
                 return res.status(200).send({
                     "email": response.email,
@@ -73,24 +75,20 @@ class UsersController {
         });
     }
 
-    static updateUser(req, res){
-
-    }
-
-    static getUserByid(req, res) {
+    static findOneAndUpdate(req, res){
         const database = new Database('users');
-        console.log(req.query.id)
-        database.findOne({id: req.query.id})
-            .then(results => {
-                if(results) {
-                    console.log('Resultados: ', results);
-                    res.send(results);
+        let codepass = bcrypt.hashSync(req.body.password, 10);
+        const update = {$set:
+            {
+            email: req.body.email,
+            password:codepass,
+            username:req.body.username
+        }};
     
-                } else {
-                    console.log('No se encontro el usuario');
-                }
-            })
-            .catch(err => {});
+        database.findOneAndUpdate({ email: req.body.email }, update).then((user) => {
+            if (!user) return res.status(404).send("User dosen´t founded");
+            res.send("Update user");
+          });
     }
 
    
@@ -113,11 +111,11 @@ class UsersController {
             database.findOne({id: req.query.id})
             .then(results => {
                 if(results) {
-                    console.log('Resultados: ', results);
+                    console.log('Results: ', results);
                     res.send(results);
     
                 } else {
-                    console.log('No se encontro el usuario');
+                    console.log('User not found');
                 }
             })
             .catch(err => {});
@@ -127,9 +125,11 @@ class UsersController {
     }
 
     static deleteUser(req, res){
-        
-        console.log(req.body);
-        return res.status(400).end();
+        const database = new Database('users');
+        database.findOneAndDelete({id: req.params.id}).then((user) => {
+            if (!user) return res.status(404).send("User dosen´t founded");
+            res.send("Delete user");
+          });
     }
     
 }
