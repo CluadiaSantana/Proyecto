@@ -2,68 +2,39 @@ const { Db } = require('mongodb');
 const router = require('express').Router();
 const Database = require('./../models/database');
 const path = require('path');
-const UsersController = require('../controllers/users.controller');
+const StudentController = require('../controllers/students.controller');
 const auth= require('../../middlewares/auth')
 
 
 /**
  * @swagger
  * 
- * /auth/users:
+ * /auth/students:
  *   post:
- *     summary: create a new user
+ *     summary: create a new student
  *     requestBody:
  *       content:
  *         application/json:
  *           schema:
- *             description: the email and password
+ *             description: the id of the user
  *             type: object
  *           example: 
- *             email: "CS@test.com"
- *             password: "Hola123Hola"
- *             username: "Claudia"
- *             rol: "Admin"
+ *             id: 9dk9g0f53
  *     responses:
  *       201:
- *         description: User created correctly!
+ *         description: Student created correctly!
  *       400:
  *         description: Data is missing!
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Student not alredy exist!!  
  */
-router.post('/',UsersController.sign);
+router.post('/',StudentController.sign);
+
 
 /**
  * @swagger
  * 
- * /auth/users/login:
- *   post:
- *     summary: user login 
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             description: the email and password
- *             type: object
- *           example: 
- *             email: "CS@test.com"
- *             password: "Hola123Hola"
- *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
- */
-router.post('/login',UsersController.login);
-
-/**
- * @swagger
- * 
- * /api/users:
+ * /api/students?id={id}:
  *   put:
  *     summary: delete a user
  *     security:
@@ -81,9 +52,10 @@ router.post('/login',UsersController.login);
  *             description: the email and password
  *             type: object
  *           example: 
- *             email: "CS@test.com"
- *             password: "Hola123Hola2"
- *             username: "Claudia1"
+ *             graduationDate: 5.05.2022
+ *             abscences: 3
+ *             totalClasses: 50
+ *             urlVideo: ""
  *     responses:
  *       201:
  *         description: Login sucess
@@ -95,14 +67,14 @@ router.post('/login',UsersController.login);
  *         description: User not alredy exist!!  
  */
 
- router.put('/', auth.adminValidation ,UsersController.findOneAndUpdate);
+ router.put('/', auth.teacherValidation, StudentController.findOneAndUpdateStudent);
 
 /**
  * @swagger
  * 
- * /api/users:
+ * /api/students:
  *   get:
- *     summary: delete a user
+ *     summary: get all the students
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -116,12 +88,12 @@ router.post('/login',UsersController.login);
  *         description: User not alredy exist!!  
  */
 
-router.get('/', UsersController.getUsers);
+router.get('/', StudentController.getStudents);
 
 /**
  * @swagger
  * 
- * /api/users?id={id}:
+ * /api/students?id={id}:
  *   get:
  *     summary: delete a user
  *     security:
@@ -131,7 +103,7 @@ router.get('/', UsersController.getUsers);
  *         name: id
  *         type: string
  *         example:
- *          4682ptvjs
+ *          9dk9g0f53
  *     responses:
  *       201:
  *         description: Login sucess
@@ -143,16 +115,16 @@ router.get('/', UsersController.getUsers);
  *         description: User not alredy exist!!  
  */
 
-router.get('/', UsersController.getUsers);
+router.get('/', StudentController.getStudents);
 
 
 
 /**
  * @swagger
  * 
- * /api/users/{id}:
+ * /api/students/{id}:
  *   delete:
- *     summary: delete a user
+ *     summary: delete a student
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -160,7 +132,7 @@ router.get('/', UsersController.getUsers);
  *         name: id
  *         type: string
  *         example:
- *          c6qodocp0
+ *          vb1ph9dxh
  *     responses:
  *       201:
  *         description: Login sucess
@@ -171,6 +143,6 @@ router.get('/', UsersController.getUsers);
  *       404:
  *         description: User not alredy exist!!  
  */
-router.delete('/:id', auth.adminValidation, UsersController.deleteUser);
+router.delete('/:id', auth.adminValidation, StudentController.deleteStudent);
 
 module.exports = router;

@@ -85,7 +85,7 @@ class UsersController {
             username:req.body.username
         }};
     
-        database.findOneAndUpdate({ email: req.body.email }, update).then((user) => {
+        database.findOneAndUpdate({ id: req.query.id }, update).then((user) => {
             if (!user) return res.status(404).send("User dosen´t founded");
             res.send("Update user");
           });

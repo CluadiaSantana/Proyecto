@@ -30,7 +30,7 @@ function adminValidation(req,res, next){
     }
 }
 
-function teachetValidation(req,res, next){
+function teacherValidation(req,res, next){
     const rol = req.rol;
 
     if(rol == "teacher" || rol == "Admin"){
@@ -40,4 +40,4 @@ function teachetValidation(req,res, next){
     }
 }
 
-module.exports = {authPer , adminValidation, teachetValidation}
+module.exports = {authPer , adminValidation, teacherValidation}

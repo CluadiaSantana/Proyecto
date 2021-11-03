@@ -30,7 +30,7 @@ class StudentController {
 
     static sign(req, res) {
         const database = new Database('students');
-        let { id } = req.body;
+        let id  = req.body.id;
         if ( !id) {
             res.statusMessage = "Data is missing!";
             return res.status(400).end();
@@ -39,7 +39,8 @@ class StudentController {
         let d = iDate.getDate();
         let m = iDate.getMonth()+1;
         let y = iDate.getFullYear();
-        
+        let fullDate = `${d}.${m}.${y}.`;
+        console.log(id);
         database.insertOne({
             inscriptionDate: fullDate ,
             graduationDate: "",
@@ -59,7 +60,6 @@ class StudentController {
 
     static findOneAndUpdateStudent(req, res){
         const database = new Database('students');
-        let codepass = bcrypt.hashSync(req.body.password, 10);
         const update = {$set:
             {
                 graduationDate: req.body.graduationDate,
@@ -68,7 +68,7 @@ class StudentController {
                 urlVideo: req.body.urlVideo,
         }};
     
-        database.findOneAndUpdate({ email: req.body.email }, update).then((user) => {
+        database.findOneAndUpdate({ id: req.query.id }, update).then((user) => {
             if (!user) return res.status(404).send("User not found");
             res.send("Update user");
           });
