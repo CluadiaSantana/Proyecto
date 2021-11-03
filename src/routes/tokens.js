@@ -53,7 +53,7 @@ const TokensController = require('../controllers/tokens.controller');
  *         description: Unauthorized!! 
  */
 
-router.get('/', TokensController.getToken);
+router.get('/',auth.adminValidation, TokensController.getToken);
 
 /**
  * @swagger
@@ -80,7 +80,7 @@ router.get('/', TokensController.getToken);
  *         description: Unauthorized!! 
  */
 
-router.get('/', TokensController.getToken);
+router.get('/',auth.adminValidation, TokensController.getToken);
 
 /**
  * @swagger

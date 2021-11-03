@@ -98,7 +98,7 @@ router.post('/',RegistrationRecordController.sign);
  *         description: Unauthorized!!  
  */
 
-router.get('/', RegistrationRecordController.getRegistration);
+router.get('/',auth.adminValidation, RegistrationRecordController.getRegistration);
 
 /**
  * @swagger
@@ -130,7 +130,7 @@ router.get('/', RegistrationRecordController.getRegistration);
  *         description: Unauthorized!!  
  */
 
-router.get('/', RegistrationRecordController.getRegistration);
+router.get('/',auth.adminValidation, RegistrationRecordController.getRegistration);
 
 
 
