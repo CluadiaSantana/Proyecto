@@ -29,7 +29,7 @@ const auth= require('../../middlewares/auth')
  *       400:
  *         description: Data is missing!
  *       404:
- *         description: User not alredy exist!!  
+ *         description: User alredy exist!!  
  */
 router.post('/',UsersController.sign);
 
@@ -49,10 +49,10 @@ router.post('/',UsersController.sign);
  *             email: "CS@test.com"
  *             password: "Hola123Hola"
  *     responses:
- *       201:
+ *       200:
  *         description: Login sucess
  *       403:
- *         description: Incorect password! 
+ *         description: Incorect data! 
  *       400:
  *         description: Data is missing!
  *       404:
@@ -65,7 +65,7 @@ router.post('/login',UsersController.login);
  * 
  * /api/users:
  *   put:
- *     summary: delete a user
+ *     summary: update a user
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -78,21 +78,17 @@ router.post('/login',UsersController.login);
  *       content:
  *         application/json:
  *           schema:
- *             description: the email and password
+ *             description: the data to update
  *             type: object
  *           example: 
  *             email: "CS@test.com"
  *             password: "Hola123Hola2"
  *             username: "Claudia1"
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
+ *       200:
+ *         description: Update user
  *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *         description: User dosen´t founded
  */
 
  router.put('/', auth.adminValidation ,UsersController.findOneAndUpdate);
@@ -102,18 +98,16 @@ router.post('/login',UsersController.login);
  * 
  * /api/users:
  *   get:
- *     summary: delete a user
+ *     summary: get all the users
  *     security:
  *       - bearerAuth: []
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
+ *       200:
+ *         description: results
  *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *         description: Users not found! 
+ *       400:
+ *         description: Database error! 
  */
 
 router.get('/', UsersController.getUsers);
@@ -123,7 +117,7 @@ router.get('/', UsersController.getUsers);
  * 
  * /api/users?id={id}:
  *   get:
- *     summary: delete a user
+ *     summary: get a user by id
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -133,14 +127,10 @@ router.get('/', UsersController.getUsers);
  *         example:
  *          4682ptvjs
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
+ *       200:
+ *         description: results
  *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *         description: Users not found! !  
  */
 
 router.get('/', UsersController.getUsers);
@@ -162,14 +152,10 @@ router.get('/', UsersController.getUsers);
  *         example:
  *          c6qodocp0
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
+ *       200:
+ *         description: Delete user
  *       400:
- *         description: Data is missing!
- *       404:
- *         description: User not alredy exist!!  
+ *         description: User not founded!   
  */
 router.delete('/:id', auth.adminValidation, UsersController.deleteUser);
 

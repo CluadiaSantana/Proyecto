@@ -50,8 +50,8 @@ class UsersController {
             .then(results => {
             if (results) {
                 if (!bcrypt.compareSync(password, results.password)) {
-                    res.statusMessage = "Incorect password!";
-                    return res.status(400).end();
+                    res.statusMessage = "Incorect data!";
+                    return res.status(403).end();
                 }
                 let response = {
                     email: results.email,
@@ -87,7 +87,7 @@ class UsersController {
     
         database.findOneAndUpdate({ id: req.query.id }, update).then((user) => {
             if (!user) return res.status(404).send("User dosen´t founded");
-            res.send("Update user");
+            res.status(200).send("Update user");
           });
     }
 
@@ -104,18 +104,17 @@ class UsersController {
                 if(results.length === 0) {
                     res.status(400).send('Users not found');
                 } else {
-                    res.send(results);
+                    res.status(200).send(results);
                 }
             });
         }else{
             database.findOne({id: req.query.id})
             .then(results => {
                 if(results) {
-                    console.log('Results: ', results);
-                    res.send(results);
+                    res.status(200).send( results);;
     
                 } else {
-                    console.log('User not found');
+                    res.status(400).send('Users not found');
                 }
             })
             .catch(err => {});
@@ -128,10 +127,10 @@ class UsersController {
         const database = new Database('users');
         database.findOneAndDelete({id: req.params.id}).then((user) => {
             if (!user) {
-                return res.status(404).send("User dosen´t founded");}
+                return res.status(404).send("User not founded");}
             StudentController.delete(req.params.id);
             TeacherController.delete(req.params.id);
-            res.send("Delete user");
+            res.status(200).send("Delete user");
           });
     }
     
