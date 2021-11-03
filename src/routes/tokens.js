@@ -28,8 +28,6 @@ const TokensController = require('../controllers/tokens.controller');
  *         description: Record created correctly!
  *       400:
  *         description: Record alrady exist!
- *       400:
- *         description: Data is missing!
  *       401:
  *         description: Unauthorized!! 
  */

@@ -108,8 +108,6 @@ router.post('/login',UsersController.login);
  *         description: results
  *       400:
  *         description: Users not found! 
- *       400:
- *         description: Database error! 
  *       401:
  *         description: Unauthorized!! 
  */
