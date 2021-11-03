@@ -1,5 +1,5 @@
 const Database = require('../models/database');
-require('dotenv').config();
+
 
 
 class StudentController {

@@ -2,16 +2,18 @@ const { Db } = require('mongodb');
 const router = require('express').Router();
 const Database = require('./../models/database');
 const path = require('path');
-const TeacherController = require('../controllers/teachers.controller');
+const ClassesController = require('../controllers/classes.controller');
 const auth= require('../../middlewares/auth')
 
 
 /**
  * @swagger
  * 
- * /auth/teachers:
+ * /api/classes:
  *   post:
  *     summary: create a new student
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -19,7 +21,10 @@ const auth= require('../../middlewares/auth')
  *             description: the id of the user
  *             type: object
  *           example: 
- *             id: 9dk9g0f53
+ *            numClasses: 50
+ *            studentId: jhj51gfh
+ *            teacherId: jyt52utu2
+ *            weeklyHours: 3
  *     responses:
  *       201:
  *         description: Student created correctly!
@@ -28,23 +33,23 @@ const auth= require('../../middlewares/auth')
  *       404:
  *         description: Student not alredy exist!!  
  */
-router.post('/',TeacherController.sign);
+router.post('/',ClassesController.sign);
 
 
 /**
  * @swagger
  * 
- * /api/teachers?id={id}:
+ * /api/classes?studentId={studentId}:
  *   put:
  *     summary: delete a user
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: studentId
  *         type: string
  *         example:
- *          9dk9g0f53
+ *          jhj51gfh
  *     requestBody:
  *       content:
  *         application/json:
@@ -52,8 +57,8 @@ router.post('/',TeacherController.sign);
  *             description: the email and password
  *             type: object
  *           example: 
- *             salary: 15000
- *             status: Active
+ *            numClasses: 80
+ *            weeklyHours: 4
  *     responses:
  *       201:
  *         description: Login sucess
@@ -65,12 +70,12 @@ router.post('/',TeacherController.sign);
  *         description: User not alredy exist!!  
  */
 
- router.put('/', auth.adminValidation, TeacherController.findOneAndUpdateTeacher);
+ router.put('/', auth.adminValidation, ClassesController.findOneAndUpdateClass);
 
 /**
  * @swagger
  * 
- * /api/teachers:
+ * /api/classes:
  *   get:
  *     summary: get all the students
  *     security:
@@ -86,22 +91,27 @@ router.post('/',TeacherController.sign);
  *         description: User not alredy exist!!  
  */
 
-router.get('/', TeacherController.getTeachers);
+router.get('/', ClassesController.getClasses);
 
 /**
  * @swagger
  * 
- * /api/teachers?id={id}:
+ * /api/classes?studentId={studentId}&teacherId={teacherId}:
  *   get:
  *     summary: delete a user
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: studentId
  *         type: string
  *         example:
- *          9dk9g0f53
+ *          jhj51gfh
+ *       - in: path
+ *         name: teacherId
+ *         type: string
+ *         example:
+ *          jyt52utu2
  *     responses:
  *       201:
  *         description: Login sucess
@@ -113,24 +123,29 @@ router.get('/', TeacherController.getTeachers);
  *         description: User not alredy exist!!  
  */
 
-router.get('/', TeacherController.getTeachers);
+router.get('/', ClassesController.getClasses);
 
 
 
 /**
  * @swagger
  * 
- * /api/teachers/{id}:
+ * /api/classes?studentId={studentId}&teacherId={teacherId}:
  *   delete:
  *     summary: delete a student
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: studentId
  *         type: string
  *         example:
- *          9dk9g0f53
+ *          jhj51gfh
+ *       - in: path
+ *         name: teacherId
+ *         type: string
+ *         example:
+ *          jyt52utu2
  *     responses:
  *       201:
  *         description: Login sucess
@@ -141,6 +156,6 @@ router.get('/', TeacherController.getTeachers);
  *       404:
  *         description: User not alredy exist!!  
  */
-router.delete('/:id', auth.adminValidation, TeacherController.deleteTeachers);
+router.delete('/', auth.adminValidation, ClassesController.deleteClasses);
 
 module.exports = router;

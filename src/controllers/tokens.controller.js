@@ -1,6 +1,6 @@
 const Database = require('../models/database');
-const bcrypt = require("bcrypt");
-require('dotenv').config();
+
+
 
 var today= new Date();
 

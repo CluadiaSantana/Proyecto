@@ -1,8 +1,6 @@
 const Database = require('../models/database');
-const jwt = require('jsonwebtoken');
-const bcrypt = require("bcrypt");
 const { nextTick } = require('process');
-require('dotenv').config();
+
 
 class TeacherController {
     static signUser(id, salary) {
@@ -56,7 +54,7 @@ class TeacherController {
         });
     }
 
-    static findOneAndUpdateStudent(req, res){
+    static findOneAndUpdateTeacher(req, res){
         const database = new Database('teachers');
         const update = {$set:
             {
@@ -72,7 +70,7 @@ class TeacherController {
     }
 
 
-    static getStudents(req, res) {
+    static getTeachers(req, res) {
         const database = new Database('teachers');
         if(!req.query.id){
             database.find().toArray((err, results) => {
@@ -103,7 +101,7 @@ class TeacherController {
 
     }
 
-    static deleteStudent(req, res){
+    static deleteTeachers(req, res){
         const database = new Database('teachers');
         console.log(req.id)
         database.findOneAndDelete({id: req.params.id}).then((user) => {
