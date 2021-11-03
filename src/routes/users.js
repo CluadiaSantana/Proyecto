@@ -18,7 +18,6 @@ const UsersController = require('../controllers/users.controller');
  *             description: the email and password
  *             type: object
  *           example: 
- *             name: "Claudia Santana"
  *             email: "CS@test.com"
  *             password: "Hola123Hola"
  *             username: "Claudia"
@@ -45,7 +44,7 @@ router.post('/',UsersController.sign);
  *             description: the email and password
  *             type: object
  *           example: 
- *             email: "gfd.go@test.com"
+ *             email: "CS@test.com"
  *             password: "Hola123Hola"
  *     responses:
  *       201:
@@ -58,6 +57,8 @@ router.post('/',UsersController.sign);
  *         description: User not alredy exist!!  
  */
 router.post('/login',UsersController.login);
+
+
 
 
 module.exports = router;

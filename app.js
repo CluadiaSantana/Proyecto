@@ -51,22 +51,8 @@ const swaggerOptions ={
 app.use(log);
 app.use(express.json());
 app.use(router);
-app.use('/api', apiRoutes);
+app.use('/', apiRoutes);
 
-/**
- * @swagger
- * /:
- *   get:
- *     description: api landing endpoint
- *     responses:
- *       200:
- *         description: sucess response
- *       400:
- *         description: error response  
- */
-app.get('/',(req, res)=>{
-    res.send('Api works!');
-});
 
 const swaggerDocs= swaggerJsDoc(swaggerOptions);
 app.use('/swagger-ui',swaggerUI.serve, swaggerUI.setup(swaggerDocs));

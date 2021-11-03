@@ -35,6 +35,14 @@ class Database {
             })
         })
     };
+
+    deleteOne(filters){
+        return this.collection.deleteOne(filters);
+    }
+
+    findOneAndUpdate(filters){
+        return this.collection.findOneAndUpdate(filters);
+    }
 }
 
 module.exports = Database;
