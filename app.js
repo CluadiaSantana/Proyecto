@@ -22,7 +22,7 @@ const port = process.env.PORT;
 const swaggerOptions ={
     swaggerDefinition: {
         info: {
-            title: 'Tequilachat pract3', 
+            title: 'Proyecto 3ra entrega CRUDS', 
             version: '1.0.0',
             despcription: 'Practica 3 Documentacion de Api', 
             server: ['http://localhost:'+port],
