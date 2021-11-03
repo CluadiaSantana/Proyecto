@@ -11,7 +11,7 @@ const TokensController = require('../controllers/tokens.controller');
  * 
  * /api/tokens:
  *   post:
- *     summary: delete a user
+ *     summary: create new record of a token
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -25,11 +25,13 @@ const TokensController = require('../controllers/tokens.controller');
  *             token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkNTQHRlc3QuY29tIiwicm9sIjoiIiwiaWQiOiI0NjgycHR2anMiLCJpYXQiOjE2MzU5MTY1MzB9.HRTOrp1C3oPiweTOwzGb4C80arA2BKr_QPm3XLoHef8
  *     responses:
  *       201:
- *         description: Student created correctly!
+ *         description: Record created correctly!
+ *       400:
+ *         description: Record alrady exist!
  *       400:
  *         description: Data is missing!
- *       400:
- *         description: Student already exist!!  
+ *       401:
+ *         description: Unauthorized!! 
  */
  router.post('/',TokensController.sgnToken);
 
@@ -49,6 +51,8 @@ const TokensController = require('../controllers/tokens.controller');
  *         description: Tokens not found! 
  *       403:
  *         description: Database error!
+ *       401:
+ *         description: Unauthorized!! 
  */
 
 router.get('/', TokensController.getToken);
@@ -74,6 +78,8 @@ router.get('/', TokensController.getToken);
  *         description: Database error
  *       400:
  *         description: Tokens not found 
+ *       401:
+ *         description: Unauthorized!! 
  */
 
 router.get('/', TokensController.getToken);
@@ -96,7 +102,9 @@ router.get('/', TokensController.getToken);
  *       200:
  *         description: Delete tokens
  *       400:
- *         description: User id not founded   
+ *         description: User id not founded 
+ *       401:
+ *         description: Unauthorized!!   
  */
  router.delete('/:id', auth.adminValidation, TokensController.deleteTokens);
 

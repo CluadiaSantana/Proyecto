@@ -45,11 +45,11 @@ class TeacherController {
             salary: 0 ,
             status: ""
         }).then(response => {
-            res.statusMessage = "User created correctly!";
+            res.statusMessage = "Teacher created correctly!";
             return res.status(201).end();
         })
             .catch(error => {
-            res.statusMessage = "User already exist!";
+            res.statusMessage = "Teacher already exist!";
             return res.status(400).end();
         });
     }
@@ -64,8 +64,8 @@ class TeacherController {
         }};
     
         database.findOneAndUpdate({ id: req.query.id }, update).then((user) => {
-            if (!user) return res.status(404).send("User not found");
-            res.send("Update user");
+            if (!user) return res.status(404).send("Teacher not found");
+            res.status(200).send("Update teacher");
           });
     }
 
@@ -75,24 +75,23 @@ class TeacherController {
         if(!req.query.id){
             database.find().toArray((err, results) => {
                 if(err) {
-                    res.status(400).send('Database error');
+                    res.status(403).send('Database error');
                 }
 
                 if(results.length === 0) {
-                    res.status(400).send('Students not found');
+                    res.status(400).send('Teacher not found');
                 } else {
-                    res.send(results);
+                    res.status(200).send(results);
                 }
             });
         }else{
             database.findOne({id: req.query.id})
             .then(results => {
                 if(results) {
-                    console.log('Results: ', results);
-                    res.send(results);
+                    res.status(200).send(results);
     
                 } else {
-                    console.log('Student not Found');
+                    res.status(400).send('Teacher not found');
                 }
             })
             .catch(err => {});
@@ -105,8 +104,8 @@ class TeacherController {
         const database = new Database('teachers');
         console.log(req.id)
         database.findOneAndDelete({id: req.params.id}).then((user) => {
-            if (!user) return res.status(404).send("User dosen´t founded");
-            res.send("Delete user");
+            if (!user) return res.status(404).send("Teacher not founded");
+            res.send("Delete teacher");
           });
     }
 

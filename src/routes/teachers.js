@@ -22,11 +22,9 @@ const auth= require('../../middlewares/auth')
  *             id: 9dk9g0f53
  *     responses:
  *       201:
- *         description: Student created correctly!
- *       400:
- *         description: Data is missing!
+ *         description: Teacher created correctly!
  *       404:
- *         description: Student not alredy exist!!  
+ *         description: Teacher created correctly!!  
  */
 router.post('/',TeacherController.sign);
 
@@ -36,7 +34,7 @@ router.post('/',TeacherController.sign);
  * 
  * /api/teachers?id={id}:
  *   put:
- *     summary: delete a user
+ *     summary: update a teacher
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -55,14 +53,12 @@ router.post('/',TeacherController.sign);
  *             salary: 15000
  *             status: Active
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *       200:
+ *         description: Update teacher
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Teacher not found 
+ *       401:
+ *         description: Unauthorized!!   
  */
 
  router.put('/', auth.adminValidation, TeacherController.findOneAndUpdateTeacher);
@@ -76,14 +72,14 @@ router.post('/',TeacherController.sign);
  *     security:
  *       - bearerAuth: []
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: results
  *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Database error
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Teacher not found
+ *       401:
+ *         description: Unauthorized!!   
  */
 
 router.get('/', TeacherController.getTeachers);
@@ -103,14 +99,14 @@ router.get('/', TeacherController.getTeachers);
  *         example:
  *          9dk9g0f53
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: results
  *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Database error
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Teacher not found
+ *       401:
+ *         description: Unauthorized!!  
  */
 
 router.get('/', TeacherController.getTeachers);
@@ -132,14 +128,12 @@ router.get('/', TeacherController.getTeachers);
  *         example:
  *          9dk9g0f53
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *       200:
+ *         description: Delete teacher
  *       404:
- *         description: User not alredy exist!!  
+ *         description: Teacher not found 
+ *       401:
+ *         description: Unauthorized!! 
  */
 router.delete('/:id', auth.adminValidation, TeacherController.deleteTeachers);
 

@@ -45,11 +45,11 @@ class TokensController{
             id: id,
             date: fullDate
         }).then(response => {
-            res.statusMessage = "Student created correctly!";
+            res.statusMessage = "Record created correctly!";
             return res.status(201).end();
         })
             .catch(error => {
-            res.statusMessage = "Student already exist!";
+            res.statusMessage = "Record alrady exist!";
             return res.status(400).end();
         });
     }

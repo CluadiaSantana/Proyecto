@@ -89,6 +89,8 @@ router.post('/login',UsersController.login);
  *         description: Update user
  *       400:
  *         description: User dosen´t founded
+ *       401:
+ *         description: Unauthorized!! 
  */
 
  router.put('/', auth.adminValidation ,UsersController.findOneAndUpdate);
@@ -108,6 +110,8 @@ router.post('/login',UsersController.login);
  *         description: Users not found! 
  *       400:
  *         description: Database error! 
+ *       401:
+ *         description: Unauthorized!! 
  */
 
 router.get('/', UsersController.getUsers);
@@ -130,7 +134,9 @@ router.get('/', UsersController.getUsers);
  *       200:
  *         description: results
  *       400:
- *         description: Users not found! !  
+ *         description: Users not found! !
+ *       401:
+ *         description: Unauthorized!!   
  */
 
 router.get('/', UsersController.getUsers);
@@ -155,7 +161,9 @@ router.get('/', UsersController.getUsers);
  *       200:
  *         description: Delete user
  *       400:
- *         description: User not founded!   
+ *         description: User not founded! 
+ *       401:
+ *         description: Unauthorized!!   
  */
 router.delete('/:id', auth.adminValidation, UsersController.deleteUser);
 
