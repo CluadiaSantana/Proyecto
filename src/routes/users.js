@@ -78,8 +78,52 @@ router.post('/login',UsersController.login);
  *         description: User not alredy exist!!  
  */
 
-router.get('/', UsersController.getAllUsers);
+router.get('/', UsersController.getUsers);
 
+/**
+ * @swagger
+ * 
+ * /api/users?id={id}:
+ *   get:
+ *     summary: delete a user
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         example:
+ *          4682ptvjs
+ *     responses:
+ *       201:
+ *         description: Login sucess
+ *       403:
+ *         description: Incorect password! 
+ *       400:
+ *         description: Data is missing!
+ *       404:
+ *         description: User not alredy exist!!  
+ */
+router.get('/',UsersController.getUsers);
 
+/**
+ * @swagger
+ * 
+ * /api/users:
+ *   delete:
+ *     summary: delete a user
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Login sucess
+ *       403:
+ *         description: Incorect password! 
+ *       400:
+ *         description: Data is missing!
+ *       404:
+ *         description: User not alredy exist!!  
+ */
+router.delete('/',UsersController.deleteUser);
 
 module.exports = router;

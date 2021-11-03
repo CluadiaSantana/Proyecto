@@ -5,6 +5,6 @@ const auth= require('../../middlewares/auth')
 
 
 
-router.use('/api', apiRoutes);
-router.use('/auth', auth.authPer, authRoutes);
+router.use('/api', auth.authPer, apiRoutes);
+router.use('/auth', authRoutes);
 module.exports= router;

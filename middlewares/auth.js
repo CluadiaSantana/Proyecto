@@ -9,10 +9,11 @@ function authPer(req,res,next){
             if(err){
                 res.status(401).send({error: "Token no válido"})   
             }else{
-                
-                req.rol(decoded.rol);
-                req.email(decoded.email);
-                req.id(decoded.id);
+                let reg = [];
+                reg.push(decoded.rol);
+                reg.push(decoded.email);
+                reg.push(decoded.id);
+                res.reg = reg;
                 next();
             }
         })
