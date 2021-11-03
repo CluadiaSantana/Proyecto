@@ -19,9 +19,9 @@ const auth= require('../../middlewares/auth')
  *             description: the email and password
  *             type: object
  *           example: 
- *             email: "CS@test.com"
+ *             email: "Admin2@test.com"
  *             password: "Hola123Hola"
- *             username: "Claudia"
+ *             username: "Admin2"
  *             rol: "Admin"
  *     responses:
  *       201:
@@ -46,7 +46,7 @@ router.post('/',UsersController.sign);
  *             description: the email and password
  *             type: object
  *           example: 
- *             email: "CS@test.com"
+ *             email: "Admin@test.com"
  *             password: "Hola123Hola"
  *     responses:
  *       200:
@@ -83,7 +83,7 @@ router.post('/login',UsersController.login);
  *           example: 
  *             email: "CS@test.com"
  *             password: "Hola123Hola2"
- *             username: "Claudia1"
+ *             username: "Claudia12"
  *     responses:
  *       200:
  *         description: Update user
@@ -129,7 +129,7 @@ router.get('/', UsersController.getUsers);
  *         name: id
  *         type: string
  *         example:
- *          4682ptvjs
+ *          m9q0e8h78
  *     responses:
  *       200:
  *         description: results
@@ -156,7 +156,7 @@ router.get('/', UsersController.getUsers);
  *         name: id
  *         type: string
  *         example:
- *          c6qodocp0
+ *          lsn06z589
  *     responses:
  *       200:
  *         description: Delete user

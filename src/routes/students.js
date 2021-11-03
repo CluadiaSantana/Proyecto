@@ -19,7 +19,7 @@ const auth= require('../../middlewares/auth')
  *             description: the id of the user
  *             type: object
  *           example: 
- *             id: 9dk9g0f53
+ *             id: gk5hey8f2
  *     responses:
  *       201:
  *         description: student created correctly!
@@ -42,7 +42,7 @@ router.post('/',StudentController.sign);
  *         name: id
  *         type: string
  *         example:
- *          9dk9g0f53
+ *          gk5hey8f2
  *     requestBody:
  *       content:
  *         application/json:
@@ -99,7 +99,7 @@ router.get('/', StudentController.getStudents);
  *         name: id
  *         type: string
  *         example:
- *          9dk9g0f53
+ *          gk5hey8f2
  *     responses:
  *       200:
  *         description: results

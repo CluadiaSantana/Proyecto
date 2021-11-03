@@ -19,7 +19,7 @@ const auth= require('../../middlewares/auth')
  *             description: the id of the user
  *             type: object
  *           example: 
- *             id: 9dk9g0f53
+ *             id: duy2mhkyn
  *     responses:
  *       201:
  *         description: Teacher created correctly!
@@ -42,7 +42,7 @@ router.post('/',TeacherController.sign);
  *         name: id
  *         type: string
  *         example:
- *          9dk9g0f53
+ *          duy2mhkyn
  *     requestBody:
  *       content:
  *         application/json:
@@ -97,7 +97,7 @@ router.get('/', TeacherController.getTeachers);
  *         name: id
  *         type: string
  *         example:
- *          9dk9g0f53
+ *          lsn06z589
  *     responses:
  *       200:
  *         description: results
