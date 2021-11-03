@@ -2,14 +2,14 @@ const { Db } = require('mongodb');
 const router = require('express').Router();
 const Database = require('./../models/database');
 const path = require('path');
-const ClassesController = require('../controllers/classes.controller');
+const RegistrationRecordController = require('../controllers/registrationRecord.controller');
 const auth= require('../../middlewares/auth')
 
 
 /**
  * @swagger
  * 
- * /api/classes:
+ * /api/records:
  *   post:
  *     summary: create a new student
  *     security:
@@ -21,10 +21,10 @@ const auth= require('../../middlewares/auth')
  *             description: the id of the user
  *             type: object
  *           example: 
- *            numClasses: 50
- *            studentId: jhj51gfh
  *            teacherId: jyt52utu2
- *            weeklyHours: 3
+ *            studentId: jhj51gfh
+ *            date: 05.11.2021
+ *            hour: 3 a 4
  *     responses:
  *       201:
  *         description: Student created correctly!
@@ -33,13 +33,13 @@ const auth= require('../../middlewares/auth')
  *       404:
  *         description: Student not alredy exist!!  
  */
-router.post('/',ClassesController.sign);
+router.post('/',RegistrationRecordController.sign);
 
 
 /**
  * @swagger
  * 
- * /api/classes?studentId={studentId}&teacherId={teacherId}:
+ * /api/records?studentId={studentId}&teacherId={teacherId}:
  *   put:
  *     summary: delete a user
  *     security:
@@ -62,8 +62,8 @@ router.post('/',ClassesController.sign);
  *             description: the email and password
  *             type: object
  *           example: 
- *            numClasses: 80
- *            weeklyHours: 4
+ *            hour: 3 a 4
+ *            status: vacations
  *     responses:
  *       201:
  *         description: Login sucess
@@ -75,12 +75,12 @@ router.post('/',ClassesController.sign);
  *         description: User not alredy exist!!  
  */
 
- router.put('/', auth.adminValidation, ClassesController.findOneAndUpdateClass);
+ router.put('/', auth.adminValidation, RegistrationRecordController.findOneAndUpdateRegister);
 
 /**
  * @swagger
  * 
- * /api/classes:
+ * /api/records:
  *   get:
  *     summary: get all the students
  *     security:
@@ -96,12 +96,12 @@ router.post('/',ClassesController.sign);
  *         description: User not alredy exist!!  
  */
 
-router.get('/', ClassesController.getClasses);
+router.get('/', RegistrationRecordController.getRegistration);
 
 /**
  * @swagger
  * 
- * /api/classes?studentId={studentId}&teacherId={teacherId}:
+ * /api/records?studentId={studentId}&teacherId={teacherId}:
  *   get:
  *     summary: delete a user
  *     security:
@@ -128,14 +128,14 @@ router.get('/', ClassesController.getClasses);
  *         description: User not alredy exist!!  
  */
 
-router.get('/', ClassesController.getClasses);
+router.get('/', RegistrationRecordController.getRegistration);
 
 
 
 /**
  * @swagger
  * 
- * /api/classes?studentId={studentId}&teacherId={teacherId}:
+ * /api/records?studentId={studentId}&teacherId={teacherId}:
  *   delete:
  *     summary: delete a student
  *     security:
@@ -161,6 +161,6 @@ router.get('/', ClassesController.getClasses);
  *       404:
  *         description: User not alredy exist!!  
  */
-router.delete('/', auth.adminValidation, ClassesController.deleteClasses);
+router.delete('/', auth.adminValidation, RegistrationRecordController.deleteRegistration);
 
 module.exports = router;

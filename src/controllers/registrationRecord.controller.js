@@ -1,22 +1,20 @@
 const Database = require('../models/database');
 
-class ClassesController {
+class RegistrationRecordController {
 
     static sign(req, res) {
-        const database = new Database('classes');
-        let {studentId, teacherId, numClasses, weeklyHours }  = req.body;
+        const database = new Database('registrationRecord');
+        let {studentId, teacherId, numClasses, weeklyHours, date, hour }  = req.body;
         if ( !studentId || !teacherId) {
             res.statusMessage = "Data is missing!";
             return res.status(400).end();
         }
-        let hDate = new Date()
-        let y = hDate.getFullYear();
         database.insertOne({
-            year: y,
-            numClasses:numClasses,
-            studentId: studentId,
             teacherId: teacherId,
-            weeklyHours: weeklyHours
+            studentId: studentId,
+            date: date,
+            hour: hour,
+            status :"Active"
         }).then(response => {
             res.statusMessage = "User created correctly!";
             return res.status(201).end();
@@ -27,12 +25,12 @@ class ClassesController {
         });
     }
 
-    static findOneAndUpdateClass(req, res){
-        const database = new Database('classes');
+    static findOneAndUpdateRegister(req, res){
+        const database = new Database('registrationRecord');
         const update = {$set:
             {
-                numClasses: req.body.numClasses,
-                weeklyHours: req.body.weeklyHours
+                hour: req.body.hour,
+                status: req.body.status
         }};
     
         database.findOneAndUpdate({studentId: req.query.studentId , teacherId:req.query.teacherId}, update).then((user) => {
@@ -42,8 +40,8 @@ class ClassesController {
     }
 
 
-    static getClasses(req, res) {
-        const database = new Database('classes');
+    static getRegistration(req, res) {
+        const database = new Database('registrationRecord');
         if(!req.query.studentId || !req.query.teacherId){
             database.find().toArray((err, results) => {
                 if(err) {
@@ -72,8 +70,8 @@ class ClassesController {
         }
     }
 
-    static deleteClasses(req, res){
-        const database = new Database('classes');
+    static deleteRegistration(req, res){
+        const database = new Database('registrationRecords');
         database.findOneAndDelete({studentId: req.query.studentId , teacherId:req.query.teacherId}).then((user) => {
             if (!user) return res.status(404).send("User dosen´t founded");
             res.send("Delete user");
@@ -84,4 +82,4 @@ class ClassesController {
     
 }
 
-module.exports = ClassesController;
+module.exports = RegistrationRecordController;
