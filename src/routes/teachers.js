@@ -24,7 +24,7 @@ const auth= require('../../middlewares/auth')
  *       201:
  *         description: Teacher created correctly!
  *       404:
- *         description: Teacher created correctly!!  
+ *         description: Teacher alredy exist!!  
  */
 router.post('/',TeacherController.sign);
 

@@ -22,11 +22,9 @@ const auth= require('../../middlewares/auth')
  *             id: 9dk9g0f53
  *     responses:
  *       201:
- *         description: Student created correctly!
- *       400:
- *         description: Data is missing!
+ *         description: student created correctly!
  *       404:
- *         description: Student not alredy exist!!  
+ *         description: student alredy exist!!
  */
 router.post('/',StudentController.sign);
 
@@ -57,14 +55,12 @@ router.post('/',StudentController.sign);
  *             totalClasses: 50
  *             urlVideo: ""
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *       200:
+ *         description: Update student
  *       404:
- *         description: User not alredy exist!!  
+ *         description: student not found 
+ *       401:
+ *         description: Unauthorized!!   
  */
 
  router.put('/', auth.teacherValidation, StudentController.findOneAndUpdateStudent);
@@ -78,14 +74,14 @@ router.post('/',StudentController.sign);
  *     security:
  *       - bearerAuth: []
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: results
  *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Database error
  *       404:
- *         description: User not alredy exist!!  
+ *         description: student not found
+ *       401:
+ *         description: Unauthorized!! 
  */
 
 router.get('/', StudentController.getStudents);
@@ -105,14 +101,14 @@ router.get('/', StudentController.getStudents);
  *         example:
  *          9dk9g0f53
  *     responses:
- *       201:
- *         description: Login sucess
+ *       200:
+ *         description: results
  *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *         description: Database error
  *       404:
- *         description: User not alredy exist!!  
+ *         description: student not found
+ *       401:
+ *         description: Unauthorized!!  
  */
 
 router.get('/', StudentController.getStudents);
@@ -134,14 +130,12 @@ router.get('/', StudentController.getStudents);
  *         example:
  *          vb1ph9dxh
  *     responses:
- *       201:
- *         description: Login sucess
- *       403:
- *         description: Incorect password! 
- *       400:
- *         description: Data is missing!
+ *       200:
+ *         description: Delete student
  *       404:
- *         description: User not alredy exist!!  
+ *         description: student not found 
+ *       401:
+ *         description: Unauthorized!!   
  */
 router.delete('/:id', auth.adminValidation, StudentController.deleteStudent);
 

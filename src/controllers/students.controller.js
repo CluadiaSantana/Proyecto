@@ -40,7 +40,6 @@ class StudentController {
         let m = iDate.getMonth()+1;
         let y = iDate.getFullYear();
         let fullDate = `${d}.${m}.${y}.`;
-        console.log(id);
         database.insertOne({
             inscriptionDate: fullDate ,
             graduationDate: "",
@@ -49,11 +48,11 @@ class StudentController {
             urlVideo: "",
             id: id
         }).then(response => {
-            res.statusMessage = "User created correctly!";
+            res.statusMessage = "student created correctly!";
             return res.status(201).end();
         })
             .catch(error => {
-            res.statusMessage = "User already exist!";
+            res.statusMessage = "student alredy exist!";
             return res.status(400).end();
         });
     }
@@ -69,8 +68,8 @@ class StudentController {
         }};
     
         database.findOneAndUpdate({ id: req.query.id }, update).then((user) => {
-            if (!user) return res.status(404).send("User not found");
-            res.send("Update user");
+            if (!user) return res.status(404).send("student not found ");
+            res.status(200).send("Update student");
           });
     }
 
@@ -86,18 +85,17 @@ class StudentController {
                 if(results.length === 0) {
                     res.status(400).send('Students not found');
                 } else {
-                    res.send(results);
+                    res.status(200).send(results);
                 }
             });
         }else{
             database.findOne({id: req.query.id})
             .then(results => {
                 if(results) {
-                    console.log('Results: ', results);
-                    res.send(results);
+                    res.status(200).send(results);
     
                 } else {
-                    console.log('Student not Found');
+                    res.status(400).send('Students not found');
                 }
             })
             .catch(err => {});
@@ -108,10 +106,9 @@ class StudentController {
 
     static deleteStudent(req, res){
         const database = new Database('students');
-        console.log(req.id)
         database.findOneAndDelete({id: req.params.id}).then((user) => {
-            if (!user) return res.status(404).send("User dosen´t founded");
-            res.send("Delete user");
+            if (!user) return res.status(404).send("Students not found");
+            res.status(200).send("Delete student");
           });
     }
 
