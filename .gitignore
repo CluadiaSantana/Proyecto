@@ -1,4 +1,5 @@
 .env
-.node_module
+.node_modules
 node_modules/z-schema/src/schemas/schema.json
 node_modules/z-schema/src/Utils.js
+node_modules/validator/es/lib/isVariableWidth.js
