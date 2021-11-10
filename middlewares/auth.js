@@ -9,7 +9,7 @@ function authPer(req,res,next){
             if(err){
                 res.status(401).send({error: "Token no válido"})   
             }else{
-                req.rol = payload.rol;
+                req.role = payload.role;
                 next();
             }
         })
@@ -21,9 +21,9 @@ function authPer(req,res,next){
 }
 
 function adminValidation(req,res, next){
-    const rol = req.rol;
-    console.log(rol);
-    if(rol == "Admin"){
+    const role = req.role;
+    console.log(role);
+    if(role == "Admin"){
         next();
     }else{
           res.status(401).send({error:"unauthorized user"})
@@ -31,9 +31,9 @@ function adminValidation(req,res, next){
 }
 
 function teacherValidation(req,res, next){
-    const rol = req.rol;
+    const role = req.role;
 
-    if(rol == "teacher" || rol == "Admin"){
+    if(role == "teacher" || role == "Admin"){
         next();
     }else{
           res.status(401).send({error:"unauthorized user"})

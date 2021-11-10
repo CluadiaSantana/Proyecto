@@ -11,8 +11,8 @@ let secret = process.env.JWTSECRET;
 class UsersController {
     static sign(req, res) {
         const database = new Database('users');
-        let { username, password, email, rol } = req.body;
-        if ( !username || !password || !email || !rol) {
+        let { userName: userName, password, email, role } = req.body;
+        if ( !userName || !password || !email || !role) {
             res.statusMessage = "Data is missing!";
             return res.status(400).end();
         }
@@ -21,13 +21,13 @@ class UsersController {
         database.insertOne({
             email: email,
             password: codepass,
-            username: username,
-            rol: rol,
+            userName: userName,
+            role: role,
             id: id
         }).then(response => {
-            if(rol == "student"){
+            if(role == "student"){
                 StudentController.signUser(id)
-            }else if(rol == "teacher"){
+            }else if(role == "teacher"){
                 TeacherController.signUser(id, req.body.salary)
             }
             res.statusMessage = "User created correctly!";
@@ -55,8 +55,8 @@ class UsersController {
                 }
                 let response = {
                     email: results.email,
-                    nombre: results.nombre,
-                    rol: results.rol,
+                    nuserName: results.userName,
+                    role: results.role,
                     id: results.id
                 };
                 let token = jwt.sign(response, secret,{ expiresIn: '1h' });
@@ -64,7 +64,7 @@ class UsersController {
                 res.statusMessage = "Login sucess";
                 return res.status(200).send({
                     "email": response.email,
-                    "rol": response.rol,
+                    "role": response.role,
                     "token": token
                 });
             }
@@ -82,7 +82,7 @@ class UsersController {
             {
             email: req.body.email,
             password:codepass,
-            username:req.body.username
+            userName:req.body.userName
         }};
     
         database.findOneAndUpdate({ id: req.query.id }, update).then((user) => {

@@ -3,7 +3,7 @@ const Database = require('../models/database');
 
 
 class StudentController {
-    static signUser(id) {
+    static signUser(id, name) {
         const database = new Database('students');
 
        let iDate = new Date()
@@ -18,7 +18,8 @@ class StudentController {
             abscences: 0,
             totalClasses: 0,
             urlVideo: "",
-            id: id
+            studentId: id,
+            name: name
         }).then(response => {
             
             return;

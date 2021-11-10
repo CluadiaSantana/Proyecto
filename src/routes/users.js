@@ -11,6 +11,8 @@ const auth= require('../../middlewares/auth')
  * 
  * /auth/users:
  *   post:
+ *     tags:
+ *       - users
  *     summary: create a new user
  *     requestBody:
  *       content:
@@ -21,8 +23,8 @@ const auth= require('../../middlewares/auth')
  *           example: 
  *             email: "Admin2@test.com"
  *             password: "Hola123Hola"
- *             username: "Admin2"
- *             rol: "Admin"
+ *             userName: "Admin2"
+ *             role: "Admin"
  *     responses:
  *       201:
  *         description: User created correctly!
@@ -38,6 +40,8 @@ router.post('/',UsersController.sign);
  * 
  * /auth/users/login:
  *   post:
+ *     tags:
+ *       - users
  *     summary: user login 
  *     requestBody:
  *       content:
@@ -65,6 +69,8 @@ router.post('/login',UsersController.login);
  * 
  * /api/users:
  *   put:
+ *     tags:
+ *       - users
  *     summary: update a user
  *     security:
  *       - bearerAuth: []
@@ -83,7 +89,7 @@ router.post('/login',UsersController.login);
  *           example: 
  *             email: "CS@test.com"
  *             password: "Hola123Hola2"
- *             username: "Claudia12"
+ *             userName: "Claudia12"
  *     responses:
  *       200:
  *         description: Update user
@@ -100,6 +106,8 @@ router.post('/login',UsersController.login);
  * 
  * /api/users:
  *   get:
+ *     tags:
+ *       - users
  *     summary: get all the users
  *     security:
  *       - bearerAuth: []
@@ -119,6 +127,8 @@ router.get('/', UsersController.getUsers);
  * 
  * /api/users?id={id}:
  *   get:
+ *     tags:
+ *       - users
  *     summary: get a user by id
  *     security:
  *       - bearerAuth: []
@@ -146,6 +156,8 @@ router.get('/', UsersController.getUsers);
  * 
  * /api/users/{id}:
  *   delete:
+ *     tags:
+ *       - users
  *     summary: delete a user
  *     security:
  *       - bearerAuth: []
