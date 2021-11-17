@@ -6,6 +6,8 @@ const swaggerJsDoc= require('swagger-jsdoc');
 const swaggerUI= require('swagger-ui-express');
 const MongoClient= require('mongodb').MongoClient;
 const Database = require('./src/models/database');
+const passport = require('passport');
+const session = require('express-session');
 const apiRoutes = require('./src/routes/index');
 const { log } = require("./middlewares/logs");
 const cors= require('cors');
@@ -19,6 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 if(process.env.NODE_ENV === 'dev'){
     require('dotenv').config();
 }
+
+//Passport config
+require('./config/passport')(passport)
 
 let database;
 const port = process.env.PORT;
@@ -56,6 +61,20 @@ app.use(log);
 app.use(express.json());
 app.use(router);
 app.use('/', apiRoutes);
+app.use('/auth', require('./src/routes/auth'))
+
+
+//Sessions
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+}))
+
+
+//Passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
 
 
 const swaggerDocs= swaggerJsDoc(swaggerOptions);
