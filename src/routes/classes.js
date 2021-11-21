@@ -96,7 +96,7 @@ router.post('/',ClassesController.sign);
  *         description: Unauthorized!!  
  */
 
-router.get('/', ClassesController.getClasses);
+router.get('/',auth.teacherValidation, ClassesController.getClasses);
 
 /**
  * @swagger
@@ -128,7 +128,7 @@ router.get('/', ClassesController.getClasses);
  *         description: Unauthorized!!  
  */
 
-router.get('/', ClassesController.getClasses);
+router.get('/',auth.teacherValidation, ClassesController.getClasses);
 
 
 

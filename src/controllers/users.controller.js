@@ -9,6 +9,7 @@ const {
 } = require('express');
 require('dotenv').config();
 
+
 let secret = process.env.JWTSECRET;
 
 class UsersController {
@@ -150,7 +151,8 @@ class UsersController {
 
     }
 
-    static findOneAndUpdate(req, res) {
+
+    static findOneAndUpdate(req, res){
         const database = new Database('users');
         let codepass = bcrypt.hashSync(req.body.password, 10);
         const update = {
