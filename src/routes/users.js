@@ -3,7 +3,9 @@ const router = require('express').Router();
 const Database = require('./../models/database');
 const path = require('path');
 const UsersController = require('../controllers/users.controller');
-const auth= require('../../middlewares/auth')
+const auth= require('../../middlewares/auth');
+const multer = require('multer');
+
 
 
 /**
@@ -176,5 +178,26 @@ router.get('/', UsersController.getUsers);
  *         description: Unauthorized!!   
  */
 router.delete('/:id', auth.adminValidation, UsersController.deleteUser);
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, path.join(__dirname, '..', '..', 'perfilphtos'));
+    },
+    filename: function(req, file, cb) {
+        let name= req.userName;
+        cb(null, name);
+    }
+});
+
+const fileFilter = function(req, file, cb) {
+    console.log('File filter: ', file.mimetype);
+    let isValid = false;
+    if(file.mimetype === 'image/jpeg') {
+        isValid = true;
+    }
+    cb(null, isValid);
+}
+
+const upload = multer({storage: storage, fileFilter: fileFilter});
 
 module.exports = router;

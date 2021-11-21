@@ -136,7 +136,14 @@ class UsersController {
             res.status(200).send("Delete user");
           });
     }
+
+    static photo(req,res){
+
+    }
     
+    static createphoto(req,res){
+
+    }
 }
 
 module.exports = UsersController;

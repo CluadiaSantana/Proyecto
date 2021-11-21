@@ -6,7 +6,6 @@ const swaggerJsDoc= require('swagger-jsdoc');
 const swaggerUI= require('swagger-ui-express');
 const MongoClient= require('mongodb').MongoClient;
 const Database = require('./src/models/database');
-const passport = require('passport');
 const session = require('express-session');
 const apiRoutes = require('./src/routes/index');
 const { log } = require("./middlewares/logs");
@@ -22,8 +21,6 @@ if(process.env.NODE_ENV === 'dev'){
     require('dotenv').config();
 }
 
-//Passport config
-require('./config/passport')(passport)
 
 let database;
 const port = process.env.PORT;
@@ -72,9 +69,6 @@ app.use(session({
 }))
 
 
-//Passport middleware
-app.use(passport.initialize())
-app.use(passport.session())
 
 
 const swaggerDocs= swaggerJsDoc(swaggerOptions);
