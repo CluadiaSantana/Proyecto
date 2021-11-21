@@ -6,12 +6,13 @@ const StudentController = require('../controllers/students.controller');
 const TeacherController = require('../controllers/teachers.controller');
 require('dotenv').config();
 
+
 let secret = process.env.JWTSECRET;
 
 class UsersController {
     static sign(req, res) {
         const database = new Database('users');
-        let { userName: userName, password, email, role } = req.body;
+        let { userName, password, email, role } = req.body;
         if ( !userName || !password || !email || !role) {
             res.statusMessage = "Data is missing!";
             return res.status(400).end();
@@ -26,9 +27,9 @@ class UsersController {
             id: id
         }).then(response => {
             if(role == "student"){
-                StudentController.signUser(id)
+                StudentController.signUser(id,userName)
             }else if(role == "teacher"){
-                TeacherController.signUser(id, req.body.salary)
+                TeacherController.signUser(id, req.body.salary,userName)
             }
             res.statusMessage = "User created correctly!";
             return res.status(201).end();
@@ -55,7 +56,7 @@ class UsersController {
                 }
                 let response = {
                     email: results.email,
-                    nuserName: results.userName,
+                    userName: results.userName,
                     role: results.role,
                     id: results.id
                 };
@@ -65,7 +66,8 @@ class UsersController {
                 return res.status(200).send({
                     "email": response.email,
                     "role": response.role,
-                    "token": token
+                    "token": token,
+                    "userName": response.userName
                 });
             }
             else {
@@ -74,6 +76,7 @@ class UsersController {
             }
         });
     }
+
 
     static findOneAndUpdate(req, res){
         const database = new Database('users');

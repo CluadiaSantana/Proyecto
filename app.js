@@ -36,8 +36,8 @@ const swaggerOptions ={
             despcription: 'Practica 3 Documentacion de Api', 
             server: ['http://localhost:'+port],
             contact:{
-                name:'Santana',
-                email: 'is726396@iteso.mx'
+                name:'Santana, Montemayor, Romo',
+                email: ''
             }
         },
         basePath: "/",

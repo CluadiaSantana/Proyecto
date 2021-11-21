@@ -3,7 +3,7 @@ const { nextTick } = require('process');
 
 
 class TeacherController {
-    static signUser(id, salary) {
+    static signUser(id, salary, name) {
         const database = new Database('teachers');
 
        let hDate = new Date()
@@ -17,7 +17,8 @@ class TeacherController {
             hiringDate: fullDate ,
             students: [],
             salary: salary ,
-            status: ""
+            status: "",
+            name: name
         }).then(response => {
             return;
         })
