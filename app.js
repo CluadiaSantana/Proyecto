@@ -84,7 +84,7 @@ MongoClient.connect(process.env.MONGO_URL,{
         const database=client.db();
         Database.setDatabase(database);
         //console.log(database);
-        app.listen(port,()=>{
+        const server = app.listen(port,()=>{
             console.log('App is listening in port '+port)
         })
     }

@@ -51,14 +51,14 @@ router.post('/',UsersController.sign);
  *           schema:
  *             description: the email and password
  *             type: object
- *           example: 
+ *           example:  
  *             email: "Admin@test.com"
  *             password: "Hola123Hola"
  *     responses:
  *       200:
- *         description: Login sucess
+ *         description: Login success
  *       403:
- *         description: Incorect data! 
+ *         description: Incorrect data! 
  *       400:
  *         description: Data is missing!
  *       404:
@@ -96,7 +96,7 @@ router.post('/login',UsersController.login);
  *       200:
  *         description: Update user
  *       400:
- *         description: User dosen´t founded
+ *         description: User doesn´t found
  *       401:
  *         description: Unauthorized!! 
  */
@@ -199,5 +199,28 @@ const fileFilter = function(req, file, cb) {
 }
 
 const upload = multer({storage: storage, fileFilter: fileFilter});
+/**
+ * @swagger
+ * 
+ * /auth/users/google:
+ *   get:
+ *     tags:
+ *       - users
+ *     summary: get a user by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         example:
+ *          m9q0e8h78
+ *     responses:
+ *       200:
+ *         description: results
+ *       400:
+ *         description: Users not found! !
+ *       401:
+ *         description: Unauthorized!!   
+ */
+router.post('/google',UsersController.googleLogin)
 
 module.exports = router;
