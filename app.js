@@ -6,8 +6,6 @@ const swaggerJsDoc= require('swagger-jsdoc');
 const swaggerUI= require('swagger-ui-express');
 const MongoClient= require('mongodb').MongoClient;
 const Database = require('./src/models/database');
-const passport = require('passport');
-const session = require('express-session');
 const apiRoutes = require('./src/routes/index');
 const { log } = require("./middlewares/logs");
 const cors= require('cors');
@@ -22,8 +20,21 @@ if(process.env.NODE_ENV === 'dev'){
     require('dotenv').config();
 }
 
+//Socket io
+//const socketIo = require('socket.io');
+
+//const elSocket = socket(server, {
+    //cors:{
+        //origin: 'http://localhost:4200',
+        //methods: ['GET', 'POST']
+    //}
+//});
+
+//elSocket.on('connection', ()=>{
+    //console.log('Alguien se conecto');
+//});
+
 //Passport config
-require('./config/passport')(passport)
 
 let database;
 const port = process.env.PORT;
@@ -61,21 +72,6 @@ app.use(log);
 app.use(express.json());
 app.use(router);
 app.use('/', apiRoutes);
-app.use('/auth', require('./src/routes/auth'))
-
-
-//Sessions
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-}))
-
-
-//Passport middleware
-app.use(passport.initialize())
-app.use(passport.session())
-
 
 const swaggerDocs= swaggerJsDoc(swaggerOptions);
 app.use('/swagger-ui',swaggerUI.serve, swaggerUI.setup(swaggerDocs));
@@ -90,7 +86,7 @@ MongoClient.connect(process.env.MONGO_URL,{
         const database=client.db();
         Database.setDatabase(database);
         //console.log(database);
-        app.listen(port,()=>{
+        const server = app.listen(port,()=>{
             console.log('App is listening in port '+port)
         })
     }

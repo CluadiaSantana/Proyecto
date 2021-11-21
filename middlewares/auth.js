@@ -4,7 +4,7 @@ let secret = process.env.JWTSECRET;
 
 function authPer(req,res,next){
     let token= req.headers["x-auth"];
-    if(token){
+    if(token){ 
         jwt.verify(token, secret, (err, payload)=>{
             if(err){
                 res.status(401).send({error: "Token no válido"})   

@@ -2,7 +2,7 @@ const Database = require('../models/database');
 
 
 
-var today= new Date();
+var today= new Date(); 
 
 class TokensController{
 

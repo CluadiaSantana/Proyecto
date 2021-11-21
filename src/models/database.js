@@ -1,4 +1,4 @@
-let database;
+let database; 
 
 class Database {
     
@@ -22,7 +22,7 @@ class Database {
         return this.collection.findOne(filters);
     }
 
-    insertOne(data){
+    insertOne(data){ //Funcion que recibe data y la inserta en la collection de la base de datos 
         return new Promise ((resolve, reject) =>{
             this.collection.insertOne(data, function (error, response) {
                 if(error) {

@@ -3,19 +3,19 @@ const Database = require('../models/database');
 
 
 class StudentController {
-    static signUser(id, name) {
-        const database = new Database('students');
+    static signUser(id, name) {  
+       const database = new Database('students'); //Utilizara la collection students
 
        let iDate = new Date()
        let d = iDate.getDate();
-       let m = iDate.getMonth()+1;
+       let m = iDate.getMonth()+1;     //Se crea la fecha
        let y = iDate.getFullYear();
        let fullDate = `${d}.${m}.${y}.`;
        
         database.insertOne({
             inscriptionDate: fullDate ,
             graduationDate: "",
-            abscences: 0,
+            abscences: 0,           //Se pasa la data que se insertara con la funcion insertOne()
             totalClasses: 0,
             urlVideo: "",
             studentId: id,
