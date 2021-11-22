@@ -100,7 +100,11 @@ class UsersController {
     }
 
     static googleLogin(req, res) {
-        let {email, userName, googleId} =  req.body;
+        let {
+            email,
+            userName,
+            googleId
+        } = req.body;
         const oAuth2Client = new OAuth2Client(
             process.env.GOOGLE_CLIENT_ID
         )
@@ -133,7 +137,7 @@ class UsersController {
                 }
                 database.insertOne({ //Funcion insertOne que se encuentra en 'models' se manda a llamar
                     email: user.email,
-                    userName: user.userName, 
+                    userName: user.userName,
                     role: "student",
                     id: user.id,
                     googleId: user.googleId,
@@ -153,34 +157,6 @@ class UsersController {
             });
 
         });
-
-
-        //   .then((response) => {
-        //     StudentController.signUser(id);
-        //     database
-        //       .findOne({
-        //         googleId: googleId,
-        //       })
-        //       .then((response) => {
-        //         let token = jwt.sign(response, secret, {
-        //           expiresIn: "1h",
-        //         });
-        //         console.log(token);
-        //         TokensController.newToken(token, response.id);
-        //         res.statusMessage = "Login sucess";
-        //         res.status(200).send({
-        //           email: response.email,
-        //           role: response.role,
-        //           token: response.token,
-        //           userName: response.userName,
-        //         });
-        //       });
-        //   })
-        //   .catch((error) => {
-        //     res.statusMessage = "User already exist!"; //La data tiene error y se manda mensaje de error
-        //     return res.status(400).end();
-        //   });
-        //return res.status(200).end();
     }
 
     static findOneAndUpdate(req, res) {
