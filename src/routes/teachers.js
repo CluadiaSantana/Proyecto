@@ -11,6 +11,8 @@ const auth= require('../../middlewares/auth')
  * 
  * /auth/teachers:
  *   post:
+ *     tags:
+ *       - teacher
  *     summary: create a new student
  *     requestBody:
  *       content:

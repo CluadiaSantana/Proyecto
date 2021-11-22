@@ -75,7 +75,10 @@ class TeacherController {
         const database = new Database('teachers');
         if(!req.query.id){
         }
-            let filter=[{$lookup:
+        
+            let filter=[
+                { $match: { "id": "9dk9g0f53" } },
+                {$lookup:
                 {
                       from: "users",
                       localField: "id",
