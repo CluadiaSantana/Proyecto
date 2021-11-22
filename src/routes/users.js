@@ -101,7 +101,7 @@ router.post('/login',UsersController.login);
  *         description: Unauthorized!! 
  */
 
- router.put('/', auth.adminValidation ,UsersController.findOneAndUpdate);
+ router.put('/',UsersController.findOneAndUpdate);
 
 /**
  * @swagger
@@ -122,7 +122,7 @@ router.post('/login',UsersController.login);
  *         description: Unauthorized!! 
  */
 
-router.get('/', UsersController.getUsers);
+router.get('/',auth.adminValidation, UsersController.getUsers);
 
 /**
  * @swagger

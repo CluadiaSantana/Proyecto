@@ -77,8 +77,14 @@ class StudentController {
 
     static getStudents(req, res) {
         const database = new Database('students');
+        let query;
+        if(req.role== "Admin"){
+            query={};
+        } else if(req.role=="teacher"){
+            query={teacherId: req.id}
+        }
         if(!req.query.id){
-            database.find().toArray((err, results) => {
+            database.find(query).toArray((err, results) => {
                 if(err) {
                     res.status(400).send('Database error');
                 }
@@ -89,20 +95,7 @@ class StudentController {
                     res.status(200).send(results);
                 }
             });
-        }else{
-            database.findOne({id: req.query.id})
-            .then(results => {
-                if(results) {
-                    res.status(200).send(results);
-    
-                } else {
-                    res.status(400).send('Students not found');
-                }
-            })
-            .catch(err => {});
         }
-
-
     }
 
     static deleteStudent(req, res){

@@ -9,7 +9,6 @@ class RegistrationRecordController {
             res.statusMessage = "Data is missing!";
             return res.status(400).end();
         }
-// hacer el response con la findOne de clases 
         database.insertOne({
             claseId: response.claseId,
             date: date,
@@ -42,32 +41,27 @@ class RegistrationRecordController {
 
     static getRegistration(req, res) {
         const database = new Database('registrationRecord');
-        if(!req.query.studentId || !req.query.teacherId){
-            database.find().toArray((err, results) => {
-                if(err) {
-                    res.status(400).send('Database error');
-                }
-
-                if(results.length === 0) {
-                    res.status(400).send('Record not found');
-                } else {
-                    res.status(200).send(results);
-                }
-            });
-        }else{
-            database.find({studentId: req.query.studentId , teacherId:req.query.teacherId}).toArray((err, results) => {
-                if(err) {
-                    res.status(400).send('Database error');
-                }
-
-                if(results.length === 0) {
-                    res.status(400).send('Record not found');
-                } else {
-                    res.status(200).send(results);
-                }
-            });
-
+        let query;
+        if(req.role== "Admin"){
+            query={};
+        }else if(req.role=="student")
+        {
+            query={studentId: req.id}
+        } else if(req.role=="teacher"){
+            query={teacherId: req.id}
         }
+            database.find(query).toArray((err, results) => {
+                if(err) {
+                    res.status(400).send('Database error');
+                }
+
+                if(results.length === 0) {
+                    res.status(400).send('Record not found');
+                } else {
+                    res.status(200).send(results);
+                }
+            });
+
     }
 
     static deleteRegistration(req, res){

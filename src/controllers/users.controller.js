@@ -78,6 +78,7 @@ class UsersController {
             email: response.email,
             role: response.role,
             token: token,
+            userName: results.userName
           });
         } else {
           res.statusMessage = "User does not exist!!";
