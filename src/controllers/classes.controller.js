@@ -49,12 +49,21 @@ class ClassesController {
         const database = new Database('classes');
         let query;
         if(req.role== "Admin"){
-            query={};
+            if(req.query.studentId && req.query.teacherId){
+                query={studentId:req.query.studentId, teacherId: req.query.teacherId};
+            }else{
+                query={};
+            }
         }else if(req.role=="student")
         {
             query={studentId: req.id}
         } else if(req.role=="teacher"){
-            query={teacherId: req.id}
+            if(req.query.studentId){
+                query={teacherId: req.id, studentId:req.query.studentId}
+            }else{
+                query={teacherId: req.id}
+            }
+            
         }
             database.find(query).toArray((err, results) => {
                 if(err) {

@@ -43,6 +43,10 @@ class Database {
     findOneAndUpdate(query, update, options){
         return this.collection.findOneAndUpdate(query, update, options);
     }
+
+    aggregate(filters){
+        return this.collection.aggregate(filters);
+    }
 }
 
 module.exports = Database;

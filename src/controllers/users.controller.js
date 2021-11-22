@@ -153,34 +153,6 @@ class UsersController {
             });
 
         });
-
-
-        //   .then((response) => {
-        //     StudentController.signUser(id);
-        //     database
-        //       .findOne({
-        //         googleId: googleId,
-        //       })
-        //       .then((response) => {
-        //         let token = jwt.sign(response, secret, {
-        //           expiresIn: "1h",
-        //         });
-        //         console.log(token);
-        //         TokensController.newToken(token, response.id);
-        //         res.statusMessage = "Login sucess";
-        //         res.status(200).send({
-        //           email: response.email,
-        //           role: response.role,
-        //           token: response.token,
-        //           userName: response.userName,
-        //         });
-        //       });
-        //   })
-        //   .catch((error) => {
-        //     res.statusMessage = "User already exist!"; //La data tiene error y se manda mensaje de error
-        //     return res.status(400).end();
-        //   });
-        //return res.status(200).end();
     }
 
     static findOneAndUpdate(req, res) {

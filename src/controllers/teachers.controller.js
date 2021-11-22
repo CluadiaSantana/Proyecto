@@ -1,9 +1,10 @@
 const Database = require('../models/database');
 const { nextTick } = require('process');
+const { response } = require('express');
 
 
 class TeacherController {
-    static signUser(id, salary, name) {
+    static signUser(id, salary) {
         const database = new Database('teachers');
 
        let hDate = new Date()
@@ -18,7 +19,6 @@ class TeacherController {
             students: [],
             salary: salary ,
             status: "",
-            name: name
         }).then(response => {
             return;
         })
@@ -73,34 +73,28 @@ class TeacherController {
 
     static getTeachers(req, res) {
         const database = new Database('teachers');
-        const databaseuser = new Database('users');
         if(!req.query.id){
-            database.find().toArray((err, results) => {
-                if(err) {
-                    res.status(403).send('Database error');
-                }
-
-                if(results.length === 0) {
-                    res.status(400).send('Teacher not found');
-                } else {
-                    res.status(200).send(results);
-                }
-            });
-        }else{
-            database.findOne({id: req.query.id})
-            .then(results => {
-                if(results) {
-                    res.status(200).send(results);
-    
-                } else {
-                    res.status(400).send('Teacher not found');
-                }
-            })
+        }
+            let filter=[{$lookup:
+                {
+                      from: "users",
+                      localField: "id",
+                      foreignField: "id",
+                      as: "user"
+                  }
+                 },
+                 {
+                    $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$user",0 ] }, "$$ROOT" ] } }
+                 },
+                 { $project: { user: 0 } }
+                ]
+            database.aggregate(filter).toArray().then(response=>{
+                     console.log(response);
+                     res.status(200).send(response);
+                 })
             .catch(err => {});
         }
 
-
-    }
 
     static deleteTeachers(req, res){
         const database = new Database('teachers');
