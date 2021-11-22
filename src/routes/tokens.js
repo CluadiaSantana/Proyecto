@@ -11,6 +11,8 @@ const TokensController = require('../controllers/tokens.controller');
  * 
  * /api/tokens:
  *   post:
+ *     tags:
+ *       - Tokens
  *     summary: create new record of a token
  *     security:
  *       - bearerAuth: []
@@ -39,6 +41,8 @@ const TokensController = require('../controllers/tokens.controller');
  * 
  * /api/tokens:
  *   get:
+ *     tags:
+ *       - Tokens
  *     summary: get all tokens records
  *     security:
  *       - bearerAuth: []
@@ -60,6 +64,8 @@ router.get('/',auth.adminValidation, TokensController.getToken);
  * 
  * /api/tokens?id={id}:
  *   get:
+ *     tags:
+ *       - Tokens
  *     summary: get a tokens from one user
  *     security:
  *       - bearerAuth: []
@@ -87,6 +93,8 @@ router.get('/',auth.adminValidation, TokensController.getToken);
  * 
  * /api/tokens/{id}:
  *   delete:
+ *     tags:
+ *       - Tokens
  *     summary: delete all the tokens from a user
  *     security:
  *       - bearerAuth: []

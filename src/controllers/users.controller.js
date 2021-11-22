@@ -220,11 +220,11 @@ class UsersController {
             })
             .then((user) => {
                 if (!user) {
-                    return res.status(404).send("User not founded");
+                    return res.status(404).send("User not found");
                 }
                 StudentController.delete(req.params.id);
                 TeacherController.delete(req.params.id);
-                res.status(200).send("Delete user");
+                res.status(200).send("User Deleted");
             });
     }
 

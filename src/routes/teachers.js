@@ -12,7 +12,7 @@ const auth= require('../../middlewares/auth')
  * /auth/teachers:
  *   post:
  *     tags:
- *       - teacher
+ *       - teachers
  *     summary: create a new student
  *     requestBody:
  *       content:
@@ -36,6 +36,8 @@ router.post('/',TeacherController.sign);
  * 
  * /api/teachers?id={id}:
  *   put:
+ *     tags:
+ *       - teachers
  *     summary: update a teacher
  *     security:
  *       - bearerAuth: []
@@ -70,6 +72,8 @@ router.post('/',TeacherController.sign);
  * 
  * /api/teachers:
  *   get:
+ *     tags:
+ *       - teachers
  *     summary: get all the students
  *     security:
  *       - bearerAuth: []
@@ -91,6 +95,8 @@ router.get('/', TeacherController.getTeachers);
  * 
  * /api/teachers?id={id}:
  *   get:
+ *     tags:
+ *       - teachers
  *     summary: delete a user
  *     security:
  *       - bearerAuth: []
@@ -120,6 +126,8 @@ router.get('/', TeacherController.getTeachers);
  * 
  * /api/teachers/{id}:
  *   delete:
+ *     tags:
+ *       - teachers
  *     summary: delete a student
  *     security:
  *       - bearerAuth: []

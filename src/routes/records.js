@@ -11,6 +11,8 @@ const auth= require('../../middlewares/auth')
  * 
  * /api/records:
  *   post:
+ *     tags:
+ *       - records
  *     summary: create a new record
  *     security:
  *       - bearerAuth: []
@@ -43,6 +45,8 @@ router.post('/',RegistrationRecordController.sign);
  * 
  * /api/records?studentId={studentId}&teacherId={teacherId}:
  *   put:
+ *     tags:
+ *       - records
  *     summary: update a record
  *     security:
  *       - bearerAuth: []
@@ -84,6 +88,8 @@ router.post('/',RegistrationRecordController.sign);
  * 
  * /api/records:
  *   get:
+ *     tags:
+ *       - records
  *     summary: get all the records
  *     security:
  *       - bearerAuth: []
@@ -105,6 +111,8 @@ router.get('/', RegistrationRecordController.getRegistration);
  * 
  * /api/records?studentId={studentId}&teacherId={teacherId}:
  *   get:
+ *     tags:
+ *       - records
  *     summary: get a records by studen-teacher id
  *     security:
  *       - bearerAuth: []
@@ -139,6 +147,8 @@ router.get('/', RegistrationRecordController.getRegistration);
  * 
  * /api/records?studentId={studentId}&teacherId={teacherId}:
  *   delete:
+ *     tags:
+ *       - records
  *     summary: delete record
  *     security:
  *       - bearerAuth: []
