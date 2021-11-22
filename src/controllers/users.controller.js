@@ -100,7 +100,11 @@ class UsersController {
     }
 
     static googleLogin(req, res) {
-        let {email, userName, googleId} =  req.body;
+        let {
+            email,
+            userName,
+            googleId
+        } = req.body;
         const oAuth2Client = new OAuth2Client(
             process.env.GOOGLE_CLIENT_ID
         )
@@ -133,7 +137,7 @@ class UsersController {
                 }
                 database.insertOne({ //Funcion insertOne que se encuentra en 'models' se manda a llamar
                     email: user.email,
-                    userName: user.userName, 
+                    userName: user.userName,
                     role: "student",
                     id: user.id,
                     googleId: user.googleId,
