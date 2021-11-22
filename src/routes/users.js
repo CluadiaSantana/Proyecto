@@ -181,7 +181,7 @@ router.delete('/:id', auth.adminValidation, UsersController.deleteUser);
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, path.join(__dirname, '..', '..', 'perfilphtos'));
+        cb(null, path.join(__dirname, '..', '..', 'perfilphotos'));
     },
     filename: function(req, file, cb) {
         let name= req.userName;
