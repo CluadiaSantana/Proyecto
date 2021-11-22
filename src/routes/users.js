@@ -149,7 +149,7 @@ router.get('/', UsersController.getUsers);
  *         description: Unauthorized!!   
  */
 
-router.get('/', UsersController.getUsers);
+router.get('/',auth.adminValidation, UsersController.getUsers);
 
 
 

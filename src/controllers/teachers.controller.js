@@ -73,6 +73,7 @@ class TeacherController {
 
     static getTeachers(req, res) {
         const database = new Database('teachers');
+        const databaseuser = new Database('users');
         if(!req.query.id){
             database.find().toArray((err, results) => {
                 if(err) {

@@ -10,6 +10,7 @@ function authPer(req,res,next){
                 res.status(401).send({error: "Token no válido"})   
             }else{
                 req.role = payload.role;
+                req.id=payload.id;
                 next();
             }
         })

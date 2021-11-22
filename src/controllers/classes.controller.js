@@ -1,3 +1,4 @@
+const { query } = require('express');
 const Database = require('../models/database');
 
 class ClassesController {
@@ -11,12 +12,14 @@ class ClassesController {
         }
         let hDate = new Date()
         let y = hDate.getFullYear();
+        let id = "" + Math.random().toString(36).substr(2, 9); //Se crea el id
         database.insertOne({
             year: y,
             numClasses:numClasses,
             studentId: studentId,
             teacherId: teacherId,
-            weeklyHours: weeklyHours
+            weeklyHours: weeklyHours,
+            claseId: id
         }).then(response => {
             res.statusMessage = "Class created correctly!";
             return res.status(201).end();
@@ -44,24 +47,19 @@ class ClassesController {
 
     static getClasses(req, res) {
         const database = new Database('classes');
-        if(!req.query.studentId || !req.query.teacherId){
-            database.find().toArray((err, results) => {
+        let query;
+        if(req.role== "Admin"){
+            query={};
+        }else if(req.role=="student")
+        {
+            query={studentId: req.id}
+        } else if(req.role=="teacher"){
+            query={teacherId: req.id}
+        }
+            database.find(query).toArray((err, results) => {
                 if(err) {
                     res.status(400).send('Database error');
                 }
-
-                if(results.length === 0) {
-                    res.status(400).send('Classes not found');
-                } else {
-                    res.status(200).send(results);
-                }
-            });
-        }else{
-            database.find({studentId: req.query.studentId , teacherId:req.query.teacherId}).toArray((err, results) => {
-                if(err) {
-                    res.status(400).send('Database error');
-                }
-
                 if(results.length === 0) {
                     res.status(400).send('Class not found');
                 } else {
@@ -69,7 +67,6 @@ class ClassesController {
                 }
             });
 
-        }
     }
 
     static deleteClasses(req, res){

@@ -9,9 +9,9 @@ class RegistrationRecordController {
             res.statusMessage = "Data is missing!";
             return res.status(400).end();
         }
+// hacer el response con la findOne de clases 
         database.insertOne({
-            teacherId: teacherId,
-            studentId: studentId,
+            claseId: response.claseId,
             date: date,
             hour: hour,
             status :"Active"
