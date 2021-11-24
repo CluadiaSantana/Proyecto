@@ -231,13 +231,10 @@ class UsersController {
     }
 
     static profile(req, res) {
-        res.send(
-            `<h1 style='text-align: center'>
-                  Wellcome to FunOfHeuristic 
-                  <br><br>
-                  <b style="font-size: 182px;">😃👻</b>
-              </h1>`
-          );
+        res.sendFile( path.resolve(__dirname,'..','..','files','profile',''+req.params.photoName)
+          ).then(resp=>{
+              return res.status(200);
+          });
     }
 
     static createProfile(req, res) {

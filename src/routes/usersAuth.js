@@ -83,7 +83,7 @@ const multer = require('multer');
  *       401:
  *         description: Unauthorized!!   
  */
-router.get('/profile', UsersController.profile)
+router.get('/profile/:photoName', UsersController.profile)
 
 
 router.post('/google',UsersController.googleLogin)

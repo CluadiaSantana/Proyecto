@@ -17,6 +17,7 @@ app.use(cors({ origin: "*" }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use("/files/profile", express.static("/files/profile"));
 if(process.env.NODE_ENV === 'dev'){
     require('dotenv').config();
 }
