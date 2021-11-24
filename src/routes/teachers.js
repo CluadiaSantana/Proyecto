@@ -9,11 +9,13 @@ const auth= require('../../middlewares/auth')
 /**
  * @swagger
  * 
- * /auth/teachers:
+ * /api/teachers:
  *   post:
  *     tags:
  *       - teachers
- *     summary: create a new student
+ *     summary: create a new teacher
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -93,7 +95,7 @@ router.get('/', TeacherController.getTeachers);
 /**
  * @swagger
  * 
- * /api/teachers?id={id}:
+ * /api/teachers?userName={userName}:
  *   get:
  *     tags:
  *       - teachers
@@ -102,10 +104,10 @@ router.get('/', TeacherController.getTeachers);
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userName
  *         type: string
  *         example:
- *          lsn06z589
+ *          Teacher12
  *     responses:
  *       200:
  *         description: results

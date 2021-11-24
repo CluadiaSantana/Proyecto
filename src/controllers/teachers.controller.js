@@ -42,7 +42,6 @@ class TeacherController {
         database.insertOne({
             id:id,
             hiringDate: fullDate ,
-            students: [],
             salary: 0 ,
             status: ""
         }).then(response => {
@@ -59,7 +58,6 @@ class TeacherController {
         const database = new Database('teachers');
         const update = {$set:
             {
-                students: req.body.students,
                 salary: req.body.salary ,
                 status: req.body.status
         }};
@@ -73,25 +71,27 @@ class TeacherController {
 
     static getTeachers(req, res) {
         const database = new Database('teachers');
-        if(!req.query.id){
+        let filter=[
+            //{ $match: { "id": "9dk9g0f53" } },
+            {$lookup:
+            {
+                  from: "users",
+                  localField: "id",
+                  foreignField: "id",
+                  as: "user"
+              }
+             },
+             {
+                $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$user",0 ] }, "$$ROOT" ] } }
+             },
+             { $project: { user: 0 } }
+            ]
+        if(req.query.userName){
+            filter.push({$match: { "userName": req.query.userName }})
         }
-        
-            let filter=[
-                { $match: { "id": "9dk9g0f53" } },
-                {$lookup:
-                {
-                      from: "users",
-                      localField: "id",
-                      foreignField: "id",
-                      as: "user"
-                  }
-                 },
-                 {
-                    $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$user",0 ] }, "$$ROOT" ] } }
-                 },
-                 { $project: { user: 0 } }
-                ]
-            database.aggregate(filter).toArray().then(response=>{
+        console.log(filter);
+           
+           database.aggregate(filter).toArray().then(response=>{
                      console.log(response);
                      res.status(200).send(response);
                  })

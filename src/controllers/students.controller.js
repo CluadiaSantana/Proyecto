@@ -3,7 +3,7 @@ const Database = require('../models/database');
 
 
 class StudentController {
-    static signUser(id, name) {  
+    static signUser(id) {  
        const database = new Database('students'); //Utilizara la collection students
 
        let iDate = new Date()
@@ -19,7 +19,8 @@ class StudentController {
             totalClasses: 0,
             urlVideo: "",
             studentId: id,
-            name: name
+            teacher: "",
+            photo:""
         }).then(response => {
             
             return;
@@ -47,7 +48,9 @@ class StudentController {
             abscences: 0,
             totalClasses: 0,
             urlVideo: "",
-            id: id
+            id: id,
+            teacher: "",
+            photo:""
         }).then(response => {
             res.statusMessage = "student created correctly!";
             return res.status(201).end();
@@ -77,25 +80,38 @@ class StudentController {
 
     static getStudents(req, res) {
         const database = new Database('students');
-        let query;
-        if(req.role== "Admin"){
-            query={};
-        } else if(req.role=="teacher"){
-            query={teacherId: req.id}
+        let filter=[
+            {$lookup:
+            {
+                  from: "users",
+                  localField: "id",
+                  foreignField: "id",
+                  as: "user"
+              }
+             },
+             {
+                $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$user",0 ] }, "$$ROOT" ] } }
+             },
+             { $project: { user: 0 } }
+            ]
+        if(req.role=="Admin"){
+            
+        }else{
+            if(req.query.id){
+                console.log(req.query.id);
+                filter.push({$match: { $and: [{"teacher": req.id} , {"userName": req.query.userName} ]}})
+            }else{
+                filter.push({$match: { "teacher": req.id}})
+            }
+            
         }
-        if(!req.query.id){
-            database.find(query).toArray((err, results) => {
-                if(err) {
-                    res.status(400).send('Database error');
-                }
-
-                if(results.length === 0) {
-                    res.status(400).send('Students not found');
-                } else {
-                    res.status(200).send(results);
-                }
-            });
-        }
+        console.log(filter);
+           
+           database.aggregate(filter).toArray().then(response=>{
+                     console.log(response);
+                     res.status(200).send(response);
+                 })
+            .catch(err => {});
     }
 
     static deleteStudent(req, res){

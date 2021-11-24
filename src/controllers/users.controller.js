@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const TokensController = require("../controllers/tokens.controller");
 const StudentController = require("../controllers/students.controller");
 const TeacherController = require("../controllers/teachers.controller");
+const path = require('path');
 const {
     OAuth2Client
 } = require('google-auth-library');
@@ -78,7 +79,7 @@ class UsersController {
                     }
                     let response = {
                         email: results.email,
-                        nuserName: results.userName,
+                        userName: results.userName,
                         role: results.role,
                         id: results.id,
                     };
@@ -91,6 +92,7 @@ class UsersController {
                         email: response.email,
                         role: response.role,
                         token: token,
+                        userName : response.userName
                     });
                 } else {
                     res.statusMessage = "User does not exist!!";
@@ -228,9 +230,24 @@ class UsersController {
             });
     }
 
-    static photo(req, res) {}
+    static profile(req, res) {
+        res.send(
+            `<h1 style='text-align: center'>
+                  Wellcome to FunOfHeuristic 
+                  <br><br>
+                  <b style="font-size: 182px;">😃👻</b>
+              </h1>`
+          );
+    }
 
-    static createphoto(req, res) {}
+    static createProfile(req, res) {
+        const file = req.file;
+    if (!file) {
+      return res.status(404).end()
+    }
+      res.send(file);
+  }
+
 }
 
 module.exports = UsersController;
