@@ -1,7 +1,7 @@
 const { Db } = require('mongodb');
 const router = require('express').Router();
 const Database = require('./../models/database');
-const path = require('path');
+
 const ClassesController = require('../controllers/classes.controller');
 const auth= require('../../middlewares/auth')
 

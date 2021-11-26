@@ -5,6 +5,7 @@ const teachersRoutes = require('./teachers');
 const tokensRoutes = require('./tokens');
 const classesRoutes = require('./classes');
 const recordsRouters = require('./records')
+const auth = require ('../../middlewares/auth')
 
 router.use('/users', usersRoutes);
 router.use('/students', studentrsRoutes);

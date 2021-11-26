@@ -4,6 +4,9 @@ const bcrypt = require("bcrypt");
 const TokensController = require("../controllers/tokens.controller");
 const StudentController = require("../controllers/students.controller");
 const TeacherController = require("../controllers/teachers.controller");
+const path = require('path');
+const fs = require('fs');
+
 const {
     OAuth2Client
 } = require('google-auth-library');
@@ -38,6 +41,7 @@ class UsersController {
                 userName: userName, //Data que se le pasa como parametro para insertar en la collection 'users'
                 role: role,
                 id: id,
+                photoName: '16363.png'
             })
             .then((response) => {
                 if (role == "student") {
@@ -78,9 +82,10 @@ class UsersController {
                     }
                     let response = {
                         email: results.email,
-                        nuserName: results.userName,
+                        userName: results.userName,
                         role: results.role,
                         id: results.id,
+                        photoName:results.photoName
                     };
                     let token = jwt.sign(response, secret, {
                         expiresIn: "1h",
@@ -91,6 +96,9 @@ class UsersController {
                         email: response.email,
                         role: response.role,
                         token: token,
+                        userName: response.userName,
+                        photoName:results.photoName,
+                        id: results.id
                     });
                 } else {
                     res.statusMessage = "User does not exist!!";
@@ -152,6 +160,8 @@ class UsersController {
                         role: user.role,
                         token: token,
                         userName: user.userName,
+                        photoName: '16363.png',
+                        id: user.id
                     }).end();
                 })
             });
@@ -199,7 +209,7 @@ class UsersController {
         } else {
             database
                 .findOne({
-                    id: req.id,
+                    id: req.query.id,
                 })
                 .then((results) => {
                     if (results) {
@@ -228,9 +238,40 @@ class UsersController {
             });
     }
 
-    static photo(req, res) {}
+    static profile(req, res) {
+        res.sendFile(path.resolve(__dirname, '..', '..', 'files', 'profile', '' + req.params.photoName)).then(resp => {
+            return res.status(200);
+        });
+    }
 
-    static createphoto(req, res) {}
+    static createProfile(req, res) {
+        const file = req.file;
+        if (!file) {
+            return res.status(404).end()
+        }
+        res.send(file);
+    }
+
+    static updatePhoto(id, photoName) {
+        const database = new Database("users");
+        const update = {
+            $set: {
+                photoName: photoName
+            },
+        };
+
+        database
+            .findOneAndUpdate({
+                    id: id,
+                },
+                update
+            )
+            .then((user) => {
+                console.log("se uptade")
+                 return 
+            });
+    }
+
 }
 
 module.exports = UsersController;

@@ -1,34 +1,9 @@
-const { Db } = require('mongodb');
 const router = require('express').Router();
-const Database = require('./../models/database');
-const path = require('path');
 const StudentController = require('../controllers/students.controller');
 const auth= require('../../middlewares/auth')
 
 
-/**
- * @swagger
- * 
- * /auth/students:
- *   post:
- *     tags:
- *       - students
- *     summary: create a new student
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             description: the id of the user
- *             type: object
- *           example: 
- *             id: gk5hey8f2
- *     responses:
- *       201:
- *         description: student created correctly!
- *       404:
- *         description: student alredy exist!!
- */
-router.post('/',StudentController.sign);
+
 
 
 /**
@@ -95,7 +70,7 @@ router.get('/', StudentController.getStudents);
 /**
  * @swagger
  * 
- * /api/students?id={id}:
+ * /api/students?userName={userName}:
  *   get:
  *     tags:
  *       - students
@@ -104,10 +79,10 @@ router.get('/', StudentController.getStudents);
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userName
  *         type: string
  *         example:
- *          gk5hey8f2
+ *          Alumno A
  *     responses:
  *       200:
  *         description: results

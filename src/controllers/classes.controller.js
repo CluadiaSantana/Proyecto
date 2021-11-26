@@ -75,6 +75,40 @@ class ClassesController {
                     res.status(200).send(results);
                 }
             });
+            /*const database = new Database('classes');
+            let filter=[
+                {$lookup:
+                {
+                      from: "users",
+                      localField: "id",
+                      foreignField: "id",
+                      as: "student"
+                  }
+                 },
+                 {$lookup:
+                    {
+                          from: "users",
+                          localField: "id",
+                          foreignField: "id",
+                          as: "user"
+                      }
+                     },
+                 {
+                    $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$user",0 ] }, "$$ROOT" ] } }
+                 },
+                 { $project: { user: 0 } }
+                ]
+            if(req.role=="Admin"){
+                
+            }else if(req.role=="teacher"){
+                if(req.query.id){
+                    console.log(req.query.id);
+                    filter.push({$match: { $and: [{"teacher": req.id} , {"userName": req.query.userName} ]}})
+                }else{
+                    filter.push({$match: { "teacher": req.id}})
+                }
+                
+            }*/
 
     }
 
