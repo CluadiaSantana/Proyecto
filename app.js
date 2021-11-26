@@ -6,7 +6,6 @@ const swaggerJsDoc= require('swagger-jsdoc');
 const swaggerUI= require('swagger-ui-express');
 const MongoClient= require('mongodb').MongoClient;
 const Database = require('./src/models/database');
-const session = require('express-session');
 const apiRoutes = require('./src/routes/index');
 const { log } = require("./middlewares/logs");
 const cors= require('cors');
@@ -59,16 +58,6 @@ app.use(express.json());
 app.use(router);
 app.use('/', apiRoutes);
 app.use('/auth', require('./src/routes/auth'))
-
-
-//Sessions
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-}))
-
-
 
 
 const swaggerDocs= swaggerJsDoc(swaggerOptions);

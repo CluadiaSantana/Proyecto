@@ -104,7 +104,7 @@ class UsersController {
             email,
             userName,
             googleId
-        } = req.body;
+        } = req.body; 
         const oAuth2Client = new OAuth2Client(
             process.env.GOOGLE_CLIENT_ID
         )
@@ -177,7 +177,7 @@ class UsersController {
                 update
             )
             .then((user) => {
-                if (!user) return res.status(404).send("User dosen´t founded");
+                if (!user) return res.status(404).send("User doesn´t found");
                 res.status(200).send("Update user");
             });
     }
@@ -205,7 +205,7 @@ class UsersController {
                     if (results) {
                         res.status(200).send(results);
                     } else {
-                        res.status(400).send("Users not found");
+                        res.status(400).send("User not found");
                     }
                 })
                 .catch((err) => {});
