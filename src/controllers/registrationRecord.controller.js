@@ -40,7 +40,7 @@ class RegistrationRecordController {
 
 
     static getRegistration(req, res) {
-        let query;
+        /*let query;
         if(req.role== "Admin"){
             if(req.query.studentId && req.query.teacherId){
                 query={studentId:req.query.studentId, teacherId: req.query.teacherId};
@@ -56,9 +56,9 @@ class RegistrationRecordController {
             }else{
                 query={teacherId: req.id}
             }     
-        }
+        }*/
         const database = new Database('registrationRecord');
-            database.find(query).toArray((err, results) => {
+            /*database.find(query).toArray((err, results) => {
                 if(err) {
                     res.status(400).send('Database error');
                 }
@@ -68,7 +68,65 @@ class RegistrationRecordController {
                 } else {
                     res.status(200).send(results);
                 }
-            });
+            });*/
+            let filter = [
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "teacherId",
+                        foreignField: "id",
+                        as: "teacher"
+                    }
+                },
+                {
+    
+                    $lookup: {
+                        from: "users",
+                        localField: "studentId",
+                        foreignField: "id",
+                        as: "student"
+                    }
+                }
+            ]
+            if (req.role == "Admin") {
+                console.log("admin");
+                if (req.query.studentId) {
+                    filter.push({
+                        $match: {
+                            "studentId": req.query.studentId
+                        }
+                    });
+                }
+                    if (req.query.teacherId) {
+                        console.log(req.query.teacherId);
+                        filter.push({
+                            $match: {
+                                "teacherId": req.query.teacherId
+                            }
+                        })
+                }
+            } else {
+                if (req.role == "teacher") {
+                    filter.push({
+                        $match: {
+                            "teacherId": req.id
+                        }
+                    })
+                } 
+                if (req.query.studentId) {
+                    console.log(req.query.studentId);
+                    filter.push({
+                        $match: {
+                            "studentId": req.query.studentId
+                        }
+                    });
+                }
+            }
+                database.aggregate(filter).toArray().then(response => {
+                        console.log(response);
+                        res.status(200).send(response);
+                    })
+                    .catch(err => {});
 
     }
 
