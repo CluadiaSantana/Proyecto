@@ -222,6 +222,23 @@ class UsersController {
         }
     }
 
+    static getMyUsers(req, res) {
+        const database = new Database("users");
+            database
+                .findOne({
+                    id: req.id,
+                })
+                .then((results) => {
+                    if (results) {
+                        res.status(200).send(results);
+                    } else {
+                        res.status(400).send("User not found");
+                    }
+                })
+                .catch((err) => {});
+        
+    }
+
     static deleteUser(req, res) {
         const database = new Database("users");
         database

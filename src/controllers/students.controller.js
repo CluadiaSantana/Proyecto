@@ -111,19 +111,19 @@ class StudentController {
                 console.log(req.query.id);
                 filter.push({
                     $match: {
-                        "userName": req.query.userName
+                        "id": req.query.id
                     }
                 })
             }
         } else {
-            if (req.query.userName) {
-                console.log(req.query.userName);
+            if (req.query.id) {
+                console.log(req.query.id);
                 filter.push({
                     $match: {
                         $and: [{
                             "teacher": req.id
                         }, {
-                            "userName": req.query.userName
+                            "id": req.query.id
                         }]
                     }
                 })

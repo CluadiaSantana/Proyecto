@@ -86,8 +86,8 @@ class TeacherController {
              },
              { $project: { user: 0 } }
             ]
-        if(req.query.userName){
-            filter.push({$match: { "userName": req.query.userName }})
+        if(req.query.id){
+            filter.push({$match: { "id": req.query.id }})
         }
         console.log(filter);
            

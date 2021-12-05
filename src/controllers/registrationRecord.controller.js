@@ -40,35 +40,7 @@ class RegistrationRecordController {
 
 
     static getRegistration(req, res) {
-        /*let query;
-        if(req.role== "Admin"){
-            if(req.query.studentId && req.query.teacherId){
-                query={studentId:req.query.studentId, teacherId: req.query.teacherId};
-            }else{
-                query={};
-            }
-        }else if(req.role=="student")
-        {
-            query={studentId: req.id}
-        } else if(req.role=="teacher"){
-            if(req.query.studentId){
-                query={teacherId: req.id, studentId:req.query.studentId}
-            }else{
-                query={teacherId: req.id}
-            }     
-        }*/
         const database = new Database('registrationRecord');
-            /*database.find(query).toArray((err, results) => {
-                if(err) {
-                    res.status(400).send('Database error');
-                }
-
-                if(results.length === 0) {
-                    res.status(400).send('Record not found');
-                } else {
-                    res.status(200).send(results);
-                }
-            });*/
             let filter = [
                 {
                     $lookup: {
