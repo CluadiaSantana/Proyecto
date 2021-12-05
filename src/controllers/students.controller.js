@@ -108,7 +108,7 @@ class StudentController {
         ]
         if (req.role == "Admin") {
             if (req.query.id) {
-                console.log(req.query.id);
+                //console.log(req.query.id);
                 filter.push({
                     $match: {
                         "id": req.query.id
@@ -136,7 +136,7 @@ class StudentController {
             }
 
         }
-        console.log(filter);
+        //console.log(filter);
 
         database.aggregate(filter).toArray().then(response => {
                 //console.log(response);

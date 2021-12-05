@@ -4,16 +4,17 @@ class RegistrationRecordController {
 
     static sign(req, res) {
         const database = new Database('registrationRecord');
-        let {studentId, teacherId, numClasses, weeklyHours, date, hour }  = req.body;
+        let {studentId, teacherId, date, hour }  = req.body;
         if ( !studentId || !teacherId) {
             res.statusMessage = "Data is missing!";
             return res.status(400).end();
         }
         database.insertOne({
-            claseId: response.claseId,
+            teacherId:teacherId,
+            studentId: studentId,
             date: date,
             hour: hour,
-            status :"Active"
+            status :"Por confirmar"
         }).then(response => {
             res.statusMessage = "Record created correctly!";
             return res.status(201).end();
@@ -95,7 +96,7 @@ class RegistrationRecordController {
                 }
             }
                 database.aggregate(filter).toArray().then(response => {
-                        console.log(response);
+                        //console.log(response);
                         res.status(200).send(response);
                     })
                     .catch(err => {});
