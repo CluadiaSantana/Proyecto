@@ -18,7 +18,7 @@ class StudentController {
                 abscences: 0, //Se pasa la data que se insertara con la funcion insertOne()
                 totalClasses: 0,
                 urlVideo: "",
-                studentId: id,
+                id: id,
                 teacher: "",
                 photo: ""
             }).then(response => {
@@ -136,10 +136,10 @@ class StudentController {
             }
 
         }
-        //console.log(filter);
+        console.log(filter);
 
         database.aggregate(filter).toArray().then(response => {
-                console.log(response);
+                //console.log(response);
                 res.status(200).send(response);
             })
             .catch(err => {});
