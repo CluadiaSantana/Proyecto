@@ -111,7 +111,7 @@ class ClassesController {
             }
         }
         database.aggregate(filter).toArray().then(response => {
-                //console.log(filter);
+                //console.log(response);
                 res.status(200).send(response);
             })
             .catch(err => {});
