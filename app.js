@@ -10,6 +10,8 @@ const apiRoutes = require('./src/routes/index');
 const { log } = require("./middlewares/logs");
 const socketIo= require('socket.io');
 const cors= require('cors');
+const UsersController = require('./src/controllers/users.controller');
+
 
 
 app.use(cors({ origin: "*" }));
@@ -89,8 +91,18 @@ MongoClient.connect(process.env.MONGO_URL,{
         });
         io.on('connection', socket=>{
             console.log("Alguien se conecto"); 
-            socket.on('disconect',()=>{
+            socket.on('disconnect',()=>{
                 console.log('Se ha desconectado');
+            })
+            socket.on('newRecord',(data)=>{
+                console.log("nuevo registro para alumno", data);
+                UsersController.updateSize(data.id,"noSizeRecord");
+                io.emit('pushRecord',data);
+            });
+            socket.on('newNotification',(data)=>{
+                console.log("nuevo registro para alumno", data);
+                UsersController.updateSize(data.id,data.name);
+                io.emit('Notification',data);
             })
         });
     }

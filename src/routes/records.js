@@ -52,15 +52,10 @@ router.post('/',RegistrationRecordController.sign);
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: studentId
+ *         name: _id
  *         type: string
  *         example:
  *          jhj51gfh
- *       - in: path
- *         name: teacherId
- *         type: string
- *         example:
- *          jyt52utu2
  *     requestBody:
  *       content:
  *         application/json:
@@ -68,8 +63,7 @@ router.post('/',RegistrationRecordController.sign);
  *             description: the email and password
  *             type: object
  *           example: 
- *            hour: 3 a 4
- *            status: vacations
+ *            status: Cancelada
  *     responses:
  *       200:
  *         description: Update Record
@@ -109,11 +103,11 @@ router.get('/', RegistrationRecordController.getRegistration);
 /**
  * @swagger
  * 
- * /api/records?studentId={studentId}&teacherId={teacherId}:
+ * /api/records?studentId={studentId}:
  *   get:
  *     tags:
  *       - records
- *     summary: get a records by studen-teacher id
+ *     summary: get a records by studen id
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -122,11 +116,6 @@ router.get('/', RegistrationRecordController.getRegistration);
  *         type: string
  *         example:
  *          jhj51gfh
- *       - in: path
- *         name: teacherId
- *         type: string
- *         example:
- *          jyt52utu2
  *     responses:
  *       200:
  *         description: results

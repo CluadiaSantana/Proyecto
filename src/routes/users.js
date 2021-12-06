@@ -93,6 +93,28 @@ router.get('/',auth.adminValidation, UsersController.getUsers);
 
 router.get('/',auth.adminValidation, UsersController.getUsers);
 
+
+
+
+
+/**
+ * @swagger
+ * 
+ * /api/users/Me:
+ *   get:
+ *     tags:
+ *       - users
+ *     summary: get the personal information
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: results
+ *       400:
+ *         description: Users not found! !
+ *       401:
+ *         description: Unauthorized!!   
+ */
 router.get('/Me', UsersController.getMyUsers);
 
 /**

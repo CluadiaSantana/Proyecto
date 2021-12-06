@@ -64,7 +64,7 @@ const multer = require('multer');
  /**
  * @swagger
  * 
- * /auth/users/google:
+ * /auth/users/:photoName
  *   get:
  *     tags:
  *       - users
@@ -86,6 +86,28 @@ const multer = require('multer');
 router.get('/profile/:photoName', UsersController.profile)
 
 
+/**
+ * @swagger
+ * 
+ * /auth/users/google:
+ *   get:
+ *     tags:
+ *       - users
+ *     summary: get a user by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         example:
+ *          m9q0e8h78
+ *     responses:
+ *       200:
+ *         description: results
+ *       400:
+ *         description: Users not found! !
+ *       401:
+ *         description: Unauthorized!!   
+ */
 router.post('/google',UsersController.googleLogin)
 
 

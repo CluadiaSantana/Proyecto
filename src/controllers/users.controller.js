@@ -41,7 +41,11 @@ class UsersController {
                 userName: userName, //Data que se le pasa como parametro para insertar en la collection 'users'
                 role: role,
                 id: id,
-                photoName: '16363.png'
+                photoName: '16363.png',
+                noSizeRecord: 0,
+                noSizeCancel: 0,
+                noSizeConfirm: 0,
+                noSizeComplete: 0
             })
             .then((response) => {
                 if (role == "student") {
@@ -59,6 +63,10 @@ class UsersController {
                 return res.status(400).end();
             });
     }
+
+
+
+
 
     static login(req, res) {
         let {
@@ -107,6 +115,11 @@ class UsersController {
             });
     }
 
+
+
+
+
+
     static googleLogin(req, res) {
         let {
             email,
@@ -149,6 +162,10 @@ class UsersController {
                     role: "student",
                     id: user.id,
                     googleId: user.googleId,
+                    noSizeRecord: 0,
+                    noSizeCancel: 0,
+                    noSizeConfirm: 0,
+                    noSizeComplete: 0
                 }).then(response => {
                     console.log(user)
                     let token = jwt.sign(user, secret, {
@@ -169,6 +186,11 @@ class UsersController {
         });
     }
 
+
+
+
+
+
     static findOneAndUpdate(req, res) {
         console.log(req.body.email)
         const database = new Database("users");
@@ -180,7 +202,7 @@ class UsersController {
                     email: req.body.email,
                     password: codepass,
                     userName: req.body.userName,
-                    role: req.body.role
+                    role: req.body.role,
                 },
             };
         } else {
@@ -204,6 +226,11 @@ class UsersController {
             });
     }
 
+
+
+
+
+    
     static getUsers(req, res) {
         const database = new Database("users");
         if (!req.query.id) {
@@ -299,6 +326,58 @@ class UsersController {
                 console.log("se uptade")
                 return
             });
+    }
+
+    static updateSize(id,size){
+        const database = new Database("users");
+        if(size=="all"){
+            let update = {
+                $set: {
+                    noSizeRecord: 0,
+                    noSizeCancel: 0,
+                    noSizeConfirm: 0,
+                    noSizeComplete: 0
+                },
+            };
+        }
+        else{
+            let update="";
+            database.findOne({id: id}).then(user=>{
+                if(size=="noSizeRecord"){
+                    update = {
+                        $set: {
+                            noSizeRecord: user.noSizeRecord+1
+                        },
+                    };
+                }
+                if(size=="Cancelada"){
+                    update = {
+                        $set: {
+                            noSizeCancel: user.noSizeCancel+1
+                        },
+                    };
+                }
+                if(size=="Confirmada"){
+                     update = {
+                        $set: {
+                            noSizeConfirm: user.noSizeConfirm+1
+                        },
+                    };
+                }
+                if(size=="Completada"){
+                     update = {
+                        $set: {
+                            noSizeComplete: user.noSizeComplete+1
+                        },
+                    };
+                }
+                database.findOneAndUpdate({
+                    id: id,
+                },
+                update
+            )
+            })
+        }
     }
 
 }

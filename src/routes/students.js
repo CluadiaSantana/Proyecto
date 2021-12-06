@@ -51,7 +51,7 @@ const auth= require('../../middlewares/auth')
  *   get:
  *     tags:
  *       - students
- *     summary: get all the students
+ *     summary: Get the teacher´s students
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -70,7 +70,7 @@ router.get('/', StudentController.getStudents);
 /**
  * @swagger
  * 
- * /api/students?userName={userName}:
+ * /api/students?id={id}:
  *   get:
  *     tags:
  *       - students
@@ -79,10 +79,10 @@ router.get('/', StudentController.getStudents);
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: userName
+ *         name: id
  *         type: string
  *         example:
- *          Alumno A
+ *          gk5hey8f2
  *     responses:
  *       200:
  *         description: results

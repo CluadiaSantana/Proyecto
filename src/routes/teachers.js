@@ -76,7 +76,7 @@ router.post('/',TeacherController.sign);
  *   get:
  *     tags:
  *       - teachers
- *     summary: get all the students
+ *     summary: get all the teachers
  *     security:
  *       - bearerAuth: []
  *     responses:
