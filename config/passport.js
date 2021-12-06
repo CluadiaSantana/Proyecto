@@ -1,3 +1,15 @@
+/* GOOGLE AUTHENTICATION
+allows users to sign in to a web application using their google account. oAuth2.0
+passport-google-oauth20 module
+command: $ npm install passport-google-oauth20
+modules(commonJS): used to share functions between proyects. require-module.exports
+GoogleStrategy: auth users using google account and oAuth 2.0 tokens
+App must be registered in Goole Developers Console
+client ID and secret provided, URI must be configured to match app route.
+*/
+
+
+
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const Database = require('../src/models/database');
 const jwt = require('jsonwebtoken');
@@ -7,6 +19,13 @@ const TeacherController = require('../src/controllers/teachers.controller');
 
 require('dotenv').config();
 
+/*GOOGLE STRATEGY
+authenticates users using google account and oAuth 2.0 tokens
+client ID and secret provided are supplied as options.
+requires a verify callback: receives access token and refresh token(optional)
+PROFILE: contains the Authenticated user's GOOGLE PROFILE.
+*/
+
 module.exports = function (passport) {
     passport.use(new GoogleStrategy({
             clientID: process.env.GOOGLE_CLIENT_ID,
@@ -15,6 +34,8 @@ module.exports = function (passport) {
         },
         
         async (accessToken, refreshToken, profile, done) => {
+            //New user created, with a random ID assigned to avoid conflict. 
+            //this user has a profile field with GOOGLE INFO
             const newUser = {
                 id: ""+ Math.random().toString(36).substr(2, 9),
                 googleId: profile.id,
