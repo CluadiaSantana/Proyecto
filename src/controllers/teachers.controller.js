@@ -92,7 +92,7 @@ class TeacherController {
         console.log(filter);
            
            database.aggregate(filter).toArray().then(response=>{
-                     console.log(response);
+                     //console.log(response);
                      res.status(200).send(response);
                  })
             .catch(err => {});

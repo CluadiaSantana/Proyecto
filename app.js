@@ -88,6 +88,10 @@ MongoClient.connect(process.env.MONGO_URL,{
             }
         });
         io.on('connection', socket=>{
-            console.log("Alguien se conecto"); })
+            console.log("Alguien se conecto"); 
+            socket.on('disconect',()=>{
+                console.log('Se ha desconectado');
+            })
+        });
     }
 });
