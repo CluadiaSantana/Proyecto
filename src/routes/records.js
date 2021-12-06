@@ -81,7 +81,7 @@ router.post('/',RegistrationRecordController.sign);
  *         description: Unauthorized!!
  */
 
- router.put('/', auth.adminValidation, RegistrationRecordController.findOneAndUpdateRegister);
+ router.put('/', RegistrationRecordController.findOneAndUpdateRegister);
 
 /**
  * @swagger

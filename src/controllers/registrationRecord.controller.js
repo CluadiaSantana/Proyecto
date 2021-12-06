@@ -1,4 +1,5 @@
 const Database = require('../models/database');
+var ObjectId = require('mongodb').ObjectID;
 
 class RegistrationRecordController {
 
@@ -29,13 +30,13 @@ class RegistrationRecordController {
         const database = new Database('registrationRecord');
         const update = {$set:
             {
-                hour: req.body.hour,
                 status: req.body.status
         }};
-    
-        database.findOneAndUpdate({studentId: req.query.studentId , teacherId:req.query.teacherId}, update).then((user) => {
+        console.log(req.body._id)
+        database.findOneAndUpdate({_id: ObjectId(req.body._id)}, update).then((user) => {
+            console.log(user)
             if (!user) return res.status(404).send("Record not found");
-            res.status(200).send("Update Record");
+            res.status(200).end();
           });
     }
 
