@@ -18,7 +18,7 @@ class StudentController {
                 abscences: 0, //Se pasa la data que se insertara con la funcion insertOne()
                 totalClasses: 0,
                 urlVideo: "",
-                studentId: id,
+                id: id,
                 teacher: "",
                 photo: ""
             }).then(response => {
@@ -108,22 +108,22 @@ class StudentController {
         ]
         if (req.role == "Admin") {
             if (req.query.id) {
-                console.log(req.query.id);
+                //console.log(req.query.id);
                 filter.push({
                     $match: {
-                        "userName": req.query.userName
+                        "id": req.query.id
                     }
                 })
             }
         } else {
-            if (req.query.userName) {
-                console.log(req.query.userName);
+            if (req.query.id) {
+                console.log(req.query.id);
                 filter.push({
                     $match: {
                         $and: [{
                             "teacher": req.id
                         }, {
-                            "userName": req.query.userName
+                            "id": req.query.id
                         }]
                     }
                 })
@@ -139,7 +139,7 @@ class StudentController {
         //console.log(filter);
 
         database.aggregate(filter).toArray().then(response => {
-               // console.log(response);
+                //console.log(response);
                 res.status(200).send(response);
             })
             .catch(err => {});

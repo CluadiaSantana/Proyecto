@@ -8,6 +8,7 @@ const MongoClient= require('mongodb').MongoClient;
 const Database = require('./src/models/database');
 const apiRoutes = require('./src/routes/index');
 const { log } = require("./middlewares/logs");
+const socketIo= require('socket.io');
 const cors= require('cors');
 
 
@@ -77,6 +78,16 @@ MongoClient.connect(process.env.MONGO_URL,{
         //console.log(database);
         const server = app.listen(port,()=>{
             console.log('App is listening in port '+port)
-        })
+        });
+        const io= socketIo(server,{
+            cors:{
+                origin: '*',
+                methods: ['POST','PUT'],
+                allowedHeaders: ["x-auth"],
+                credentials: true
+            }
+        });
+        io.on('connection', socket=>{
+            console.log("Alguien se conecto"); })
     }
 });

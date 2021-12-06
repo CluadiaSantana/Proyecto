@@ -85,7 +85,7 @@ class UsersController {
                         userName: results.userName,
                         role: results.role,
                         id: results.id,
-                        photoName:results.photoName
+                        photoName: results.photoName
                     };
                     let token = jwt.sign(response, secret, {
                         expiresIn: "1h",
@@ -97,7 +97,7 @@ class UsersController {
                         role: response.role,
                         token: token,
                         userName: response.userName,
-                        photoName:results.photoName,
+                        photoName: results.photoName,
                         id: results.id
                     });
                 } else {
@@ -112,7 +112,7 @@ class UsersController {
             email,
             userName,
             googleId
-        } = req.body; 
+        } = req.body;
         const oAuth2Client = new OAuth2Client(
             process.env.GOOGLE_CLIENT_ID
         )
@@ -170,16 +170,28 @@ class UsersController {
     }
 
     static findOneAndUpdate(req, res) {
+        console.log(req.body.email)
         const database = new Database("users");
-        let codepass = bcrypt.hashSync(req.body.password, 10);
-        const update = {
-            $set: {
-                email: req.body.email,
-                password: codepass,
-                userName: req.body.userName,
-            },
-        };
-
+        let update;
+        if (req.body.password) {
+            let codepass = bcrypt.hashSync(req.body.password, 10);
+            update = {
+                $set: {
+                    email: req.body.email,
+                    password: codepass,
+                    userName: req.body.userName,
+                    role: req.body.role
+                },
+            };
+        } else {
+            update = {
+                $set: {
+                    email: req.body.email,
+                    userName: req.body.userName,
+                    role: req.body.role
+                },
+            }
+        }
         database
             .findOneAndUpdate({
                     id: req.query.id,
@@ -188,7 +200,7 @@ class UsersController {
             )
             .then((user) => {
                 if (!user) return res.status(404).send("User doesn´t found");
-                res.status(200).send("Update user");
+                res.status(200).end;
             });
     }
 
@@ -220,6 +232,23 @@ class UsersController {
                 })
                 .catch((err) => {});
         }
+    }
+
+    static getMyUsers(req, res) {
+        const database = new Database("users");
+        database
+            .findOne({
+                id: req.id,
+            })
+            .then((results) => {
+                if (results) {
+                    res.status(200).send(results);
+                } else {
+                    res.status(400).send("User not found");
+                }
+            })
+            .catch((err) => {});
+
     }
 
     static deleteUser(req, res) {
@@ -268,7 +297,7 @@ class UsersController {
             )
             .then((user) => {
                 console.log("se uptade")
-                 return 
+                return
             });
     }
 

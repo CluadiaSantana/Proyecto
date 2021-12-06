@@ -93,7 +93,7 @@ router.get('/',auth.adminValidation, UsersController.getUsers);
 
 router.get('/',auth.adminValidation, UsersController.getUsers);
 
-
+router.get('/Me', UsersController.getMyUsers);
 
 /**
  * @swagger
